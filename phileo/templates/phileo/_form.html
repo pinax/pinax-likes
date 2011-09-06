@@ -1,0 +1,10 @@
+<form class="phileo" action="{{ like_url }}" method="post">
+    {% csrf_token %}
+    
+    <input type="hidden" name="opposite" value="{{ opposite }}" />
+    <input type="hidden" name="current" value="{{ current }}" />
+    
+    <button type="submit"class="{{ current|lower }}">
+        {{ current }}
+    </button>
+</form>

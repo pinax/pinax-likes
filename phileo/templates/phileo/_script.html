@@ -1,0 +1,23 @@
+<script type="text/javascript" src="{{ STATIC_URL }}phileo/js/ajax_csrf.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("{{ like_link }}")
+            .addClass("iconic")
+            .addClass("check")
+            .addClass("phileo")
+            .addClass("{{ is_liked }}");
+        $("{{ like_link }}").click(function() {
+            $.ajax({
+                url: "{{ like_url }}",
+                type: "POST",
+                data: {},
+                statusCode: {
+                    200: function(data, textStatus, jqXHR) {
+                        $("{{ like_span_total }}").text(data.likes_count);
+                        $("{{ like_link }}").toggleClass("{{ toggle_class }}");
+                    }
+                }
+            });
+        });
+    });
+</script>

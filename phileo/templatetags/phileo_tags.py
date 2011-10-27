@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django.contrib.contenttypes.models import ContentType
@@ -42,47 +43,64 @@ def likes(parser, token):
     return LikesNode(user, model_list, varname)
 
 
-@register.inclusion_tag("phileo/_ajax.js")
-def likes_ajax():
-    return {}
+@register.filter
+def likes_count(obj):
+    """
+    Something like:
+    
+        <div class="likes_count">{{ obj|likes_count }}</div>
+    
+    will render:
+    
+        <div class="likes_count">34</div>
+    """
+    return Like.objects.filter(
+        receiver_content_type=ContentType.objects.get_for_model(obj),
+        receiver_object_id=obj.pk
+    ).count()
 
 
-@register.inclusion_tag("phileo/_form.html")
-def like_form(user, obj, labels):
-    """
-    {% like_form user object "like,unlike" %}
-    
-    This renders a form with a single button that is like
-    or unlink based on the current state.
-    
-    The labels string should be two choices separated by a
-    single comma, where the first is the positive choice,
-    and the second is the negating choice.
-    """
-    choices = labels.split(",")
+@register.inclusion_tag("phileo/_css.html")
+def likes_css():
+    return {"STATIC_URL": settings.STATIC_URL}
+
+
+@register.inclusion_tag("phileo/_widget.html")
+def likes_widget(user, obj, like_link_id="likes", like_span_total_class="phileo-count", toggle_class="phileo-liked"):
+    likes_count = Like.objects.filter(
+       receiver_content_type = ContentType.objects.get_for_model(obj),
+       receiver_object_id = obj.pk
+    ).count()
+    return {
+        "like_link": like_link_id,
+        "like_span_total": like_span_total_class,
+        "likes_count": likes_count
+    }
+
+
+@register.inclusion_tag("phileo/_script.html")
+def likes_js(user, obj, like_link="#likes", like_span_total=".phileo-count", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
-    qs = Like.objects.filter(
-        sender = user,
-        receiver_content_type = ct,
-        receiver_object_id = obj.pk
-    )
-    if qs.exists():
-        current = choices[1]
-        opposite = choices[0]
-    else:
-        current = choices[0]
-        opposite = choices[1]
-    
-    link_url = reverse("phileo_like_toggle", kwargs={
-        "pk": user.id,
-        "content_type_id": ct.pk,
+    url = reverse("phileo_like_toggle", kwargs={
+        "content_type_id": ct.id,
         "object_id": obj.pk
     })
-    
+    liked = Like.objects.filter(
+       sender = user,
+       receiver_content_type = ContentType.objects.get_for_model(obj),
+       receiver_object_id = obj.pk
+    ).exists()
+    if liked:
+        is_liked = toggle_class
+    else:
+        is_liked = ""
     return {
-        "like_url": link_url,
-        "current": current,
-        "opposite": opposite
+        "STATIC_URL": settings.STATIC_URL,
+        "like_url": url,
+        "like_link": like_link,
+        "like_span_total": like_span_total,
+        "toggle_class": toggle_class,
+        "is_liked": is_liked
     }
 
 

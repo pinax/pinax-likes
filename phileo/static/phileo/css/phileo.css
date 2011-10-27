@@ -1,0 +1,13 @@
+a.phileo {
+    color: #AAA;
+    font-size: 30px;
+    text-decoration: none;
+}
+a.phileo:hover {
+    color: #7DE692;
+    text-decoration: none;
+}
+a.phileo-liked {
+    color: #20A93B;
+    text-decoration: none;
+}

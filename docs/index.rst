@@ -16,9 +16,9 @@ Contents
 .. toctree::
  :maxdepth: 1
 
- installation
- usage
- settings
- templates
- signals
  changelog
+ installation
+ templatetags
+ signals
+ usage
+ 

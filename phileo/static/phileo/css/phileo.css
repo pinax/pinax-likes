@@ -1,7 +1,13 @@
+div.phileo {
+    float: right;
+    height: 24px;
+}
 a.phileo {
     color: #AAA;
     font-size: 30px;
     text-decoration: none;
+    height: 24px;
+    float: left;
 }
 a.phileo:hover {
     color: #7DE692;
@@ -10,4 +16,9 @@ a.phileo:hover {
 a.phileo-liked {
     color: #20A93B;
     text-decoration: none;
+}
+span.phileo-count {
+    font-size: 20px;
+    font-weight: bold;
+    height: 24px;
 }

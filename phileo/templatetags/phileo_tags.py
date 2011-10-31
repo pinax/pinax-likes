@@ -2,6 +2,7 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
@@ -67,14 +68,20 @@ def likes_css():
 
 @register.inclusion_tag("phileo/_widget.html")
 def likes_widget(user, obj, like_link_id="likes", like_span_total_class="phileo-count", toggle_class="phileo-liked"):
+    ct = ContentType.objects.get_for_model(obj)
     likes_count = Like.objects.filter(
-       receiver_content_type = ContentType.objects.get_for_model(obj),
+       receiver_content_type = ct,
        receiver_object_id = obj.pk
     ).count()
+    liked = user.liking.filter(
+        receiver_content_type = ct,
+        receiver_object_id = obj.pk
+    ).exists()
     return {
         "like_link": like_link_id,
         "like_span_total": like_span_total_class,
-        "likes_count": likes_count
+        "likes_count": likes_count,
+        "toggle_class": toggle_class if liked else ""
     }
 
 

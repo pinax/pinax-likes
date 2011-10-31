@@ -29,7 +29,7 @@ likes_widget
 
 This renders a fragement of html that will be what the user will click
 on to unlike or like objects. It only has two required parameters, which
-are the user and the object.
+are the user and the object.::
 
     {% likes_widget user object [like_link_id="likes" like_span_total_class="phileo-count" toggle_class="phileo-liked"] %}
 

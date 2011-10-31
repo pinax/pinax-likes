@@ -35,7 +35,6 @@ def like_toggle(request, content_type_id, object_id):
     if request.is_ajax():
         return HttpResponse(json.dumps({
             "likes_count": Like.objects.filter(
-                sender = request.user,
                 receiver_content_type = content_type,
                 receiver_object_id = object_id
             ).count()

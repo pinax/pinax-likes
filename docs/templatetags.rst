@@ -1,5 +1,16 @@
 .. _templatetags:
 
+Filters
+=======
+
+likes_count
+-----------
+
+This simple returns the count of likes for a given object::
+
+    {{ obj|likes_count }}
+
+
 Template Tags
 =============
 

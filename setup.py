@@ -105,7 +105,7 @@ def find_package_data(
 
 PACKAGE = "phileo"
 NAME = "phileo"
-DESCRIPTION = "a likes app"
+DESCRIPTION = "a liking app"
 AUTHOR = "Eldarion"
 AUTHOR_EMAIL = "development@eldarion.com"
 URL = "http://github.com/eldarion/phileo"

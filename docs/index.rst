@@ -2,7 +2,7 @@
 phileo
 ======
 
-A user likes app.
+A liking app
 
 Development
 -----------

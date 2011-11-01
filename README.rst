@@ -2,7 +2,7 @@
 Phileo
 ======
 
-a generic user liking app
+a liking app
 
 
 Attribution

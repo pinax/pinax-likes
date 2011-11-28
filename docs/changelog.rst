@@ -3,6 +3,13 @@
 ChangeLog
 =========
 
+0.3
+---
+- Likeable models need to be registered in Phileo. This prevents users from liking
+  anything and everything, which could potentially lead to security problems (eg. liking
+  entries in permission tables, and thus seeing their content; liking administrative
+  users and thus getting their username).
+
 0.2
 ---
 

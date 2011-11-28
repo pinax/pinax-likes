@@ -3,8 +3,25 @@
 Usage
 =====
 
-Phileo consists of template tags that you place within your project
-to get different "liking" functionality.
+In your models
+--------------
+
+You need to register the models that will be 'likeable' with phileo, before
+you use phileo in templates::
+
+    # in models.py
+    from phileo.handlers import library as phileo_library
+
+    # Define your models ...
+
+    # Register a single model
+    phileo_library.register(Post)
+
+    # Register a bunch of models at once
+    phileo_library.register([Page, Entry, Comment, Photo])
+
+In the views
+------------
 
 Let's say you have a detail page for a blog post. First you will want
 to load the tags::

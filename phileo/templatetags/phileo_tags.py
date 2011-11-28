@@ -61,12 +61,6 @@ def likes_count(obj):
     ).count()
 
 
-@register.inclusion_tag("phileo/_css.html")
-def likes_css():
-    return {"STATIC_URL": settings.STATIC_URL}
-
-
-@register.inclusion_tag("phileo/_widget.html")
 def likes_widget(user, obj, like_link_id="likes", like_span_total_class="phileo-count", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
     likes_count = Like.objects.filter(

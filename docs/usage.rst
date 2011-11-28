@@ -29,11 +29,6 @@ to load the tags::
     {% load phileo_tags %}
 
 
-Then in the <head> section of your template load the css::
-
-    {% likes_css %}
-
-
 In the body where you want the liking widget to go, add::
 
     {% likes_widget request.user post %}

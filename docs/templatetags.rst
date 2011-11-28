@@ -14,16 +14,6 @@ This simple returns the count of likes for a given object::
 Template Tags
 =============
 
-likes_css
----------
-
-This renders some css style sheets that will style the widget.::
-
-    {% likes_css %}
-
-It renders "phileo/_css.html" and can be overridden as desired.
-
-
 likes_widget
 ------------
 

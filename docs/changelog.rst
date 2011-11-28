@@ -9,6 +9,7 @@ ChangeLog
   anything and everything, which could potentially lead to security problems (eg. liking
   entries in permission tables, and thus seeing their content; liking administrative
   users and thus getting their username).
+- Removed {% likes_css %}. It is not the plugins job to dictate style.
 
 0.2
 ---

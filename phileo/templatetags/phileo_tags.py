@@ -88,19 +88,25 @@ def likes_widget(user, obj, like_link_id="likes", like_span_total_class="phileo-
 @register.inclusion_tag("phileo/_script.html")
 def likes_js(user, obj, like_link="#likes", like_span_total=".phileo-count", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
-    url = reverse("phileo_like_toggle", kwargs={
-        "content_type_id": ct.id,
-        "object_id": obj.pk
-    })
-    liked = Like.objects.filter(
-       sender = user,
-       receiver_content_type = ContentType.objects.get_for_model(obj),
-       receiver_object_id = obj.pk
-    ).exists()
+    if user.is_anonymous():
+        liked = False
+        like_url = settings.LOGIN_URL
+    else:
+        url = reverse("phileo_like_toggle", kwargs={
+            "content_type_id": ct.id,
+            "object_id": obj.pk
+        })
+        liked = Like.objects.filter(
+           sender = user,
+           receiver_content_type = ContentType.objects.get_for_model(obj),
+           receiver_object_id = obj.pk
+        ).exists()
+
     if liked:
         is_liked = toggle_class
     else:
         is_liked = ""
+
     return {
         "STATIC_URL": settings.STATIC_URL,
         "like_url": url,

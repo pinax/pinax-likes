@@ -2,6 +2,7 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
@@ -52,6 +53,52 @@ def likes(parser, token):
     return LikesNode(user, model_list, varname)
 
 
+class LikeRenderer(template.Node):
+
+    def __init__(self, varname):
+        self.varname = template.Variable(varname)
+    
+    def render(self, context):
+        like = self.varname.resolve(context)
+
+        instance = like.receiver
+        content_type = like.receiver_content_type
+        app_name = content_type.app_label
+        model_name = content_type.model.lower()
+
+        like_context = {
+            'instance': instance,
+            'like': like,
+        }
+
+        return render_to_string([
+            'phileo/%s/%s.html' % (app_name, model_name),
+            'phileo/%s/like.html' % (app_name),
+            'phileo/like.html',
+        ], like_context, context)
+
+@register.tag
+def render_like(parser, token):
+    """
+    {% likes user as like_list %}
+    <ul>
+        {% for like in like_list %}
+            {% render_like like %}
+        {% endfor %}
+    </ul>
+    """
+
+    tokens = token.split_contents()
+    var = tokens[1]
+
+    return  LikeRenderer(var)
+
+
+@register.inclusion_tag("phileo/js.html")
+def phileo_js():
+    return {"STATIC_URL": settings.STATIC_URL}
+
+
 @register.filter
 def likes_count(obj):
     """
@@ -67,11 +114,6 @@ def likes_count(obj):
         receiver_content_type=ContentType.objects.get_for_model(obj),
         receiver_object_id=obj.pk
     ).count()
-
-
-@register.inclusion_tag("phileo/js.html")
-def phileo_js():
-    return {"STATIC_URL": settings.STATIC_URL}
 
 
 @register.inclusion_tag("phileo/widget.html")

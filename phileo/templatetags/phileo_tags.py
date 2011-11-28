@@ -2,11 +2,12 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
-
+from phileo.handlers import library
 
 register = template.Library()
 
@@ -21,14 +22,21 @@ class LikesNode(template.Node):
     def render(self, context):
         user = self.user.resolve(context)
         content_types = []
-        for model_name in self.model_list:
-            app, model = model_name.resolve(context).split(".")
-            content_type = ContentType.objects.get(app_label=app, model__iexact=model)
-            content_types.append(content_type)
+
+
+        if len(self.model_list) == 0:
+            content_types = [ContentType.objects.get_for_model(model) for model in library.get_list()]
+        else:
+            for model_name in self.model_list:
+                app, model = model_name.resolve(context).split(".")
+                content_type = ContentType.objects.get(app_label=app, model__iexact=model)
+                content_types.append(content_type)
+
         context[self.varname] = Like.objects.filter(
             sender=user,
             receiver_content_type__in=content_types
         )
+
         return ""
 
 
@@ -41,7 +49,54 @@ def likes(parser, token):
     user = tokens[1]
     varname = tokens[-1]
     model_list = tokens[2:-2]
+
     return LikesNode(user, model_list, varname)
+
+
+class LikeRenderer(template.Node):
+
+    def __init__(self, varname):
+        self.varname = template.Variable(varname)
+    
+    def render(self, context):
+        like = self.varname.resolve(context)
+
+        instance = like.receiver
+        content_type = like.receiver_content_type
+        app_name = content_type.app_label
+        model_name = content_type.model.lower()
+
+        like_context = {
+            'instance': instance,
+            'like': like,
+        }
+
+        return render_to_string([
+            'phileo/%s/%s.html' % (app_name, model_name),
+            'phileo/%s/like.html' % (app_name),
+            'phileo/like.html',
+        ], like_context, context)
+
+@register.tag
+def render_like(parser, token):
+    """
+    {% likes user as like_list %}
+    <ul>
+        {% for like in like_list %}
+            {% render_like like %}
+        {% endfor %}
+    </ul>
+    """
+
+    tokens = token.split_contents()
+    var = tokens[1]
+
+    return  LikeRenderer(var)
+
+
+@register.inclusion_tag("phileo/js.html")
+def phileo_js():
+    return {"STATIC_URL": settings.STATIC_URL}
 
 
 @register.filter
@@ -61,55 +116,43 @@ def likes_count(obj):
     ).count()
 
 
-@register.inclusion_tag("phileo/_css.html")
-def likes_css():
-    return {"STATIC_URL": settings.STATIC_URL}
-
-
-@register.inclusion_tag("phileo/_widget.html")
-def likes_widget(user, obj, like_link_id="likes", like_span_total_class="phileo-count", toggle_class="phileo-liked"):
+@register.inclusion_tag("phileo/widget.html")
+def likes_widget(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
-    likes_count = Like.objects.filter(
+
+    like_count = Like.objects.filter(
        receiver_content_type = ct,
        receiver_object_id = obj.pk
     ).count()
-    liked = user.liking.filter(
-        receiver_content_type = ct,
-        receiver_object_id = obj.pk
-    ).exists()
-    return {
-        "like_link": like_link_id,
-        "like_span_total": like_span_total_class,
-        "likes_count": likes_count,
-        "toggle_class": toggle_class if liked else ""
-    }
 
-
-@register.inclusion_tag("phileo/_script.html")
-def likes_js(user, obj, like_link="#likes", like_span_total=".phileo-count", toggle_class="phileo-liked"):
-    ct = ContentType.objects.get_for_model(obj)
-    url = reverse("phileo_like_toggle", kwargs={
-        "content_type_id": ct.id,
-        "object_id": obj.pk
-    })
-    liked = Like.objects.filter(
-       sender = user,
-       receiver_content_type = ContentType.objects.get_for_model(obj),
-       receiver_object_id = obj.pk
-    ).exists()
-    if liked:
-        is_liked = toggle_class
+    if user.is_anonymous():
+        liked = False
+        like_url = settings.LOGIN_URL
     else:
-        is_liked = ""
-    return {
-        "STATIC_URL": settings.STATIC_URL,
-        "like_url": url,
-        "like_link": like_link,
-        "like_span_total": like_span_total,
-        "toggle_class": toggle_class,
-        "is_liked": is_liked
-    }
+        liked = user.liking.filter(
+            receiver_content_type = ct,
+            receiver_object_id = obj.pk
+        ).exists()
 
+        like_url = reverse("phileo_like_toggle", kwargs={
+            "content_type_id": ct.pk,
+            "object_id": obj.pk
+        })
+
+    if widget_id == None:
+        widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
+
+    like_count_id = "%s_count" % widget_id
+
+    return {
+        "like_url": like_url,
+        "widget_id": widget_id,
+        "like_type": like_type,
+        "like_count": like_count,
+        "like_count_id": like_count_id,
+        "toggle_class": toggle_class,
+        "is_liked": toggle_class if liked else ""
+    }
 
 class LikedObjectsNode(template.Node):
     

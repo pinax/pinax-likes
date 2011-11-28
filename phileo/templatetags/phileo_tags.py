@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
 
-
 register = template.Library()
 
 
@@ -65,51 +64,44 @@ def likes_count(obj):
 def likes_css():
     return {"STATIC_URL": settings.STATIC_URL}
 
+@register.inclusion_tag("phileo/_js.html")
+def phileo_js():
+    return {"STATIC_URL": settings.STATIC_URL}
+
 
 @register.inclusion_tag("phileo/_widget.html")
-def likes_widget(user, obj, like_link_id="likes", like_span_total_class="phileo-count", toggle_class="phileo-liked"):
+def likes_widget(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
-    likes_count = Like.objects.filter(
+
+    like_count = Like.objects.filter(
        receiver_content_type = ct,
        receiver_object_id = obj.pk
     ).count()
+
     liked = user.liking.filter(
         receiver_content_type = ct,
         receiver_object_id = obj.pk
     ).exists()
-    return {
-        "like_link": like_link_id,
-        "like_span_total": like_span_total_class,
-        "likes_count": likes_count,
-        "toggle_class": toggle_class if liked else ""
-    }
 
+    if widget_id == None:
+        widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
 
-@register.inclusion_tag("phileo/_script.html")
-def likes_js(user, obj, like_link="#likes", like_span_total=".phileo-count", toggle_class="phileo-liked"):
-    ct = ContentType.objects.get_for_model(obj)
-    url = reverse("phileo_like_toggle", kwargs={
-        "content_type_id": ct.id,
+    like_count_id = "%s_count" % widget_id
+    
+    like_url = reverse("phileo_like_toggle", kwargs={
+        "content_type_id": ct.pk,
         "object_id": obj.pk
     })
-    liked = Like.objects.filter(
-       sender = user,
-       receiver_content_type = ContentType.objects.get_for_model(obj),
-       receiver_object_id = obj.pk
-    ).exists()
-    if liked:
-        is_liked = toggle_class
-    else:
-        is_liked = ""
-    return {
-        "STATIC_URL": settings.STATIC_URL,
-        "like_url": url,
-        "like_link": like_link,
-        "like_span_total": like_span_total,
-        "toggle_class": toggle_class,
-        "is_liked": is_liked
-    }
 
+    return {
+        "like_url": like_url,
+        "widget_id": widget_id,
+        "like_type": like_type,
+        "like_count": like_count,
+        "like_count_id": like_count_id,
+        "toggle_class": toggle_class,
+        "is_liked": toggle_class if liked else ""
+    }
 
 class LikedObjectsNode(template.Node):
     

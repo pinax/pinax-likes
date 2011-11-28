@@ -9,14 +9,7 @@ from django.views.decorators.http import require_POST
 
 from phileo.models import Like
 from phileo.signals import object_liked, object_unliked
-
-
-LIKABLE_MODELS = getattr(settings, "PHILEO_LIKABLE_MODELS", [])
-
-
-def _allowed(obj):
-    model_name = "%s.%s" % (obj._meta.app_label, obj._meta.object_name)
-    return model_name in LIKABLE_MODELS
+from phileo.utils import _allowed
 
 
 @require_POST

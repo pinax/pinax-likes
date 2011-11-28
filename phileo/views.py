@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.utils import simplejson as json
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
@@ -9,11 +9,15 @@ from django.views.decorators.http import require_POST
 from phileo.models import Like
 from phileo.signals import object_liked, object_unliked
 
+from phileo.handlers import library
+
 
 @require_POST
 @login_required
 def like_toggle(request, content_type_id, object_id):
     content_type = get_object_or_404(ContentType, pk=content_type_id)
+    if not library.is_registered(content_type.model_class):
+        return HttpResponseForbidden()
     
     like, created = Like.objects.get_or_create(
         sender = request.user,

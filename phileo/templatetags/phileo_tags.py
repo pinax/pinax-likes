@@ -88,8 +88,10 @@ def likes_widget(user, obj, widget_id=None, like_type="like", toggle_class="phil
             "object_id": obj.pk
         })
 
+    if widget_id == None:
+        widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
+
     like_count_id = "%s_count" % widget_id
-    
 
     return {
         "like_url": like_url,

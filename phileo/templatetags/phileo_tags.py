@@ -2,6 +2,7 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
@@ -40,6 +41,48 @@ def likes(parser, token):
     varname = tokens[-1]
     model_list = tokens[2:-2]
     return LikesNode(user, model_list, varname)
+
+
+class LikeRenderer(template.Node):
+
+    def __init__(self, varname):
+        self.varname = template.Variable(varname)
+    
+    def render(self, context):
+        like = self.varname.resolve(context)
+
+        instance = like.receiver
+        content_type = like.receiver_content_type
+        app_name = content_type.app_label
+        model_name = content_type.model.lower()
+
+        like_context = {
+            'instance': instance,
+            'like': like,
+        }
+
+        return render_to_string([
+            'phileo/%s/%s.html' % (app_name, model_name),
+            'phileo/%s/like.html' % (app_name),
+            'phileo/_like.html',
+        ], like_context, context)
+
+@register.tag
+def render_like(parser, token):
+    """
+    {% likes user as like_list %}
+    <ul>
+        {% for like in like_list %}
+            {% render_like like %}
+        {% endfor %}
+    </ul>
+    """
+
+    tokens = token.split_contents()
+    var = tokens[1]
+
+    return  LikeRenderer(var)
+
 
 
 @register.filter

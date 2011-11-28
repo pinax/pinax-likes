@@ -2,7 +2,6 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
@@ -61,8 +60,9 @@ def likes_count(obj):
 
 
 @register.inclusion_tag("phileo/_css.html")
-def likes_css():
+def phileo_css():
     return {"STATIC_URL": settings.STATIC_URL}
+
 
 @register.inclusion_tag("phileo/_js.html")
 def phileo_js():
@@ -70,7 +70,7 @@ def phileo_js():
 
 
 @register.inclusion_tag("phileo/_widget.html")
-def likes_widget(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
+def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
 
     like_count = Like.objects.filter(
@@ -102,6 +102,7 @@ def likes_widget(user, obj, widget_id=None, like_type="like", toggle_class="phil
         "toggle_class": toggle_class,
         "is_liked": toggle_class if liked else ""
     }
+
 
 class LikedObjectsNode(template.Node):
     

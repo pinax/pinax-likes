@@ -3,6 +3,15 @@
 ChangeLog
 =========
 
+0.3
+---
+- Turned the JavaScript code in to a jQuery plugin, removed most of the initialization
+  code from the individual widget templates to a external JavaScript file, and added a
+  {% phileo_js %} tag to load this plugin.
+- Each like button gets a unique ID, so multiple like buttons can appear on a single
+  page
+- The like form works without JavaScript.
+
 0.2
 ---
 

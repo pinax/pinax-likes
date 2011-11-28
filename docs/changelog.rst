@@ -6,6 +6,7 @@ ChangeLog
 0.3
 ---
 
+- Renamed `likes_css` and `likes_widget` to `phileo_css` and `phileo_widget`
 - Turned the JavaScript code in to a jQuery plugin, removed most of the initialization
   code from the individual widget templates to a external JavaScript file, and added a
   {% phileo_js %} tag to load this plugin.

@@ -3,22 +3,18 @@
 Usage
 =====
 
-In your models
---------------
+In your settings
+----------------
 
-You need to register the models that will be 'likeable' with phileo, before
-you use phileo in templates::
+You need to add each model that you want to be likable to the
+`PHILEO_LIKABLE_MODELS` setting::
 
-    # in models.py
-    from phileo.handlers import library as phileo_library
+    PHILEO_LIKABLE_MODELS = [
+        "profiles.Profile",
+        "videos.Video",
+        "biblion.Post"
+    ]
 
-    # Define your models ...
-
-    # Register a single model
-    phileo_library.register(Post)
-
-    # Register a bunch of models at once
-    phileo_library.register([Page, Entry, Comment, Photo])
 
 In the views
 ------------
@@ -31,7 +27,7 @@ to load the tags::
 
 Then in the <head> section of your template load the css::
 
-    {% likes_css %}
+    {% phileo_css %}
 
 
 Load the required JavaScript file, wherever you load your JavaScript libraries::
@@ -41,7 +37,7 @@ Load the required JavaScript file, wherever you load your JavaScript libraries::
 
 In the body where you want the liking widget to go, add::
 
-    {% likes_widget request.user post %}
+    {% phileo_widget request.user post %}
 
 
 That's all you need to do to get the basics working.

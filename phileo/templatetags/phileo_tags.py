@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
+from phileo.handlers import library
 
 register = template.Library()
 
@@ -20,14 +21,21 @@ class LikesNode(template.Node):
     def render(self, context):
         user = self.user.resolve(context)
         content_types = []
-        for model_name in self.model_list:
-            app, model = model_name.resolve(context).split(".")
-            content_type = ContentType.objects.get(app_label=app, model__iexact=model)
-            content_types.append(content_type)
+
+
+        if len(self.model_list) == 0:
+            content_types = [ContentType.objects.get_for_model(model) for model in library.get_list()]
+        else:
+            for model_name in self.model_list:
+                app, model = model_name.resolve(context).split(".")
+                content_type = ContentType.objects.get(app_label=app, model__iexact=model)
+                content_types.append(content_type)
+
         context[self.varname] = Like.objects.filter(
             sender=user,
             receiver_content_type__in=content_types
         )
+
         return ""
 
 
@@ -40,6 +48,7 @@ def likes(parser, token):
     user = tokens[1]
     varname = tokens[-1]
     model_list = tokens[2:-2]
+
     return LikesNode(user, model_list, varname)
 
 

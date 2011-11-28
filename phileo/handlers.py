@@ -15,5 +15,8 @@ class Registry(object):
     def is_registered(self, model):
         return not (model in self._registry)
 
+    def get_list(self):
+        return self._registry[:]
+
 library = Registry()
 

@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
+from phileo.utils import _allowed, LIKABLE_MODELS
 
 register = template.Library()
 
@@ -13,20 +14,39 @@ class LikesNode(template.Node):
     
     def __init__(self, user, model_list, varname):
         self.user = template.Variable(user)
+
+        # Default to all the registered models
+        if len(model_list) == 0:
+            # These need to look like strings, otherwise they will be treated as variables
+            # when they are `resolve()`d later
+            model_list = ['"%s"' % model for model in LIKABLE_MODELS]
+
         self.model_list = [template.Variable(m) for m in model_list]
+
         self.varname = varname
     
     def render(self, context):
         user = self.user.resolve(context)
         content_types = []
-        for model_name in self.model_list:
-            app, model = model_name.resolve(context).split(".")
+
+        for raw_model_name in self.model_list:
+            try:
+                model_name = raw_model_name.resolve(context)
+            except template.VariableDoesNotExist:
+                continue
+
+            if not _allowed(model_name):
+                continue
+
+            app, model = model_name.split(".")
             content_type = ContentType.objects.get(app_label=app, model__iexact=model)
             content_types.append(content_type)
+
         context[self.varname] = Like.objects.filter(
             sender=user,
             receiver_content_type__in=content_types
         )
+
         return ""
 
 
@@ -39,6 +59,7 @@ def likes(parser, token):
     user = tokens[1]
     varname = tokens[-1]
     model_list = tokens[2:-2]
+
     return LikesNode(user, model_list, varname)
 
 

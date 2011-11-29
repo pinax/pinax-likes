@@ -23,6 +23,28 @@ This renders some css style sheets that will style the widget.::
 
 It renders "phileo/_css.html" and can be overridden as desired.
 
+render_like
+-----------
+
+This renders a like, so that you can provide a list of likes. It
+combines well with `likes`.::
+
+    {% likes user as like_list %}
+    <ul>
+        {% for like in like_list %}
+            <li>{% render_like like %}</li>
+        {% endfor %}
+    </ul>
+
+The `render_like` tag looks in the following place for the template to
+render. Any of them can be overwritten as needed, allowing you to
+customise the rendering of the like on a per model and per application
+basis:
+
+* phileo/app_name/model.html
+* phileo/app_name/like.html
+* phileo/_like.html
+
 phileo_js
 ---------
 
@@ -33,7 +55,7 @@ This renders some script tags that are needed to make the widget work.::
 It renders "phileo/_js.html" and can be overridden as desired.
 
 
-likes_widget
+phileo_widget
 ------------
 
 This renders a fragement of html that will be what the user will click

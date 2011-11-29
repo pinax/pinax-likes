@@ -73,7 +73,7 @@ def render_like(parser, token):
     {% likes user as like_list %}
     <ul>
         {% for like in like_list %}
-            {% render_like like %}
+            <li>{% render_like like %}</li>
         {% endfor %}
     </ul>
     """

@@ -78,22 +78,27 @@ def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phi
        receiver_object_id = obj.pk
     ).count()
 
-    liked = user.liking.filter(
-        receiver_content_type = ct,
-        receiver_object_id = obj.pk
-    ).exists()
-
     if widget_id == None:
         widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
 
     like_count_id = "%s_count" % widget_id
-    
-    like_url = reverse("phileo_like_toggle", kwargs={
-        "content_type_id": ct.pk,
-        "object_id": obj.pk
-    })
+
+    if user.is_anonymous():
+        liked = False
+        like_url = settings.LOGIN_URL
+    else:
+        like_url = reverse("phileo_like_toggle", kwargs={
+            "content_type_id": ct.id,
+            "object_id": obj.pk
+        })
+        liked = Like.objects.filter(
+           sender = user,
+           receiver_content_type = ct,
+           receiver_object_id = obj.pk
+        ).exists()
 
     return {
+        "user": user,
         "like_url": like_url,
         "widget_id": widget_id,
         "like_type": like_type,

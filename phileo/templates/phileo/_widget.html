@@ -1,7 +1,9 @@
 {% block phileo_widget_form %}
 	<form class="phileo {{ is_liked }} {{ like_type }}" action="{{ like_url }}" method="POST" id="{{ widget_id }}">{% csrf_token %}
 		{% block phileo_widget_button %}
-			<input type="submit" class="phileo-toggle" value="Like" />
+			{% if user.is_authenticated %}
+				<input type="submit" class="phileo-toggle" value="Like" />
+			{% endif %}
 		{% endblock phileo_widget_button %}
 		{% block phileo_widget_count %}
             <span class="phileo-count">

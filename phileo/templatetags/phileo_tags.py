@@ -98,6 +98,7 @@ def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phi
         ).exists()
 
     return {
+        "user": user,
         "like_url": like_url,
         "widget_id": widget_id,
         "like_type": like_type,

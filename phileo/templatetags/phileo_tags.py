@@ -29,8 +29,16 @@ class LikesNode(template.Node):
         user = self.user.resolve(context)
         content_types = []
 
-        for model_name in self.model_list:
-            app, model = model_name.resolve(context).split(".")
+        for raw_model_name in self.model_list:
+            try:
+                model_name = raw_model_name.resolve(context)
+            except template.VariableDoesNotExist:
+                continue
+
+            if not _allowed(model_name):
+                continue
+
+            app, model = model_name.split(".")
             content_type = ContentType.objects.get(app_label=app, model__iexact=model)
             content_types.append(content_type)
 

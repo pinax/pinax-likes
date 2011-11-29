@@ -93,7 +93,7 @@ def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phi
         })
         liked = Like.objects.filter(
            sender = user,
-           receiver_content_type = ContentType.objects.get_for_model(obj),
+           receiver_content_type = ct,
            receiver_object_id = obj.pk
         ).exists()
 

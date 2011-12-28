@@ -45,7 +45,7 @@ def like_toggle(request, content_type_id, object_id):
                 receiver_object_id = object_id
             ).count(),
             "liked": created,
-
+        
         }), mimetype="application/json")
     
     return redirect(request.META["HTTP_REFERER"])

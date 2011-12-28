@@ -15,39 +15,37 @@ class LikesNode(template.Node):
     
     def __init__(self, user, model_list, varname):
         self.user = template.Variable(user)
-
+        
         # Default to all the registered models
         if len(model_list) == 0:
             # These need to look like strings, otherwise they will be treated as variables
             # when they are `resolve()`d later
             model_list = ['"%s"' % model for model in LIKABLE_MODELS]
-
+        
         self.model_list = [template.Variable(m) for m in model_list]
-
         self.varname = varname
     
     def render(self, context):
         user = self.user.resolve(context)
         content_types = []
-
+        
         for raw_model_name in self.model_list:
             try:
                 model_name = raw_model_name.resolve(context)
             except template.VariableDoesNotExist:
                 continue
-
+            
             if not _allowed(model_name):
                 continue
-
+            
             app, model = model_name.split(".")
             content_type = ContentType.objects.get(app_label=app, model__iexact=model)
             content_types.append(content_type)
-
+        
         context[self.varname] = Like.objects.filter(
             sender=user,
             receiver_content_type__in=content_types
         )
-
         return ""
 
 
@@ -60,33 +58,34 @@ def likes(parser, token):
     user = tokens[1]
     varname = tokens[-1]
     model_list = tokens[2:-2]
-
+    
     return LikesNode(user, model_list, varname)
 
 
 class LikeRenderer(template.Node):
-
+    
     def __init__(self, varname):
         self.varname = template.Variable(varname)
     
     def render(self, context):
         like = self.varname.resolve(context)
-
+        
         instance = like.receiver
         content_type = like.receiver_content_type
         app_name = content_type.app_label
         model_name = content_type.model.lower()
-
+        
         like_context = {
             'instance': instance,
             'like': like,
         }
-
+        
         return render_to_string([
             'phileo/%s/%s.html' % (app_name, model_name),
             'phileo/%s/like.html' % (app_name),
             'phileo/_like.html',
         ], like_context, context)
+
 
 @register.tag
 def render_like(parser, token):
@@ -98,12 +97,11 @@ def render_like(parser, token):
         {% endfor %}
     </ul>
     """
-
+    
     tokens = token.split_contents()
     var = tokens[1]
-
+    
     return  LikeRenderer(var)
-
 
 
 @register.filter
@@ -136,17 +134,17 @@ def phileo_js():
 @register.inclusion_tag("phileo/_widget.html")
 def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
-
+    
     like_count = Like.objects.filter(
        receiver_content_type = ct,
        receiver_object_id = obj.pk
     ).count()
-
+    
     if widget_id == None:
         widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
-
+    
     like_count_id = "%s_count" % widget_id
-
+    
     if user.is_anonymous():
         liked = False
         like_url = settings.LOGIN_URL
@@ -160,7 +158,7 @@ def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phi
            receiver_content_type = ct,
            receiver_object_id = obj.pk
         ).exists()
-
+    
     return {
         "user": user,
         "like_url": like_url,

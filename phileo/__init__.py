@@ -1,2 +1,2 @@
 # following PEP 386
-__version__ = "0.3.dev2"
+__version__ = "0.3.dev3"

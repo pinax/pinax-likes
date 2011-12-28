@@ -19,9 +19,10 @@ likes_css
 
 This renders some css style sheets that will style the widget.::
 
-    {% likes_css %}
+    {% phileo_css %}
 
 It renders "phileo/_css.html" and can be overridden as desired.
+
 
 render_like
 -----------
@@ -45,6 +46,7 @@ basis:
 * phileo/app_name/like.html
 * phileo/_like.html
 
+
 phileo_js
 ---------
 
@@ -62,10 +64,20 @@ This renders a fragement of html that will be what the user will click
 on to unlike or like objects. It only has two required parameters, which
 are the user and the object.::
 
-    {% likes_widget user object [widget_id="unique_id" like_type="likes" toggle_class="phileo-liked"] %}
+    {% likes_widget user object like_text="Like|Unlike" counts_text="like|likes" [widget_id="unique_id" like_type="likes" toggle_class="phileo-liked"] %}
 
 
 It renders "phileo/_widget.html" and can be overridden as desired.
+
+
+phileo_widget_js
+----------------
+
+This renders a script tag that will use the jquery plugin that `phileo_js`
+includes into the page.
+
+It renders "phileo/_widget_js.html" and can be overriden as desired.
+
 
 liked
 -----

@@ -16,8 +16,11 @@ jQuery(function($) {
                 data: self.$form.serialize(),
                 statusCode: {
                     200: function(data, textStatus, jqXHR) {
-                        self.$count.text(data.likes_count);
                         self.$form[data.liked ? 'addClass' : 'removeClass'](self.options.toggle_class);
+                        var submit = self.$form.find("input[type=submit]");
+                        submit.val(data.liked ? submit.attr("data-unlike-text") : submit.attr("data-like-text"));
+                        var count_text = (data.likes_count > 1 || data.likes_count == 0) ? self.$count.attr("data-counts-text-plural") : self.$count.attr("data-counts-text")
+                        self.$count.text(data.likes_count + " " + count_text);
                     }
                 }
             });

@@ -131,9 +131,36 @@ def phileo_js():
     return {"STATIC_URL": settings.STATIC_URL}
 
 
-@register.inclusion_tag("phileo/_widget.html")
-def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
+@register.inclusion_tag("phileo/_widget_js.html")
+def phileo_widget_js(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
     ct = ContentType.objects.get_for_model(obj)
+    
+    if widget_id == None:
+        widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
+    
+    like_count_id = "%s_count" % widget_id
+    
+    return {
+        "user": user,
+        "widget_id": widget_id,
+        "like_count_id": like_count_id,
+        "toggle_class": toggle_class
+    }
+
+
+@register.inclusion_tag("phileo/_widget.html")
+def phileo_widget(user, obj, like_text="Like|Unlike", counts_text="like|likes", widget_id=None, like_type="like", toggle_class="phileo-liked"):
+    ct = ContentType.objects.get_for_model(obj)
+    
+    if "|" in like_text:
+        like_text = like_text.split("|")
+    else:
+        like_text = ("Like", "Unlike")
+    
+    if "|" in counts_text:
+        counts_text = counts_text.split("|")
+    else:
+        counts_text = ("like", "likes")
     
     like_count = Like.objects.filter(
        receiver_content_type = ct,
@@ -167,7 +194,9 @@ def phileo_widget(user, obj, widget_id=None, like_type="like", toggle_class="phi
         "like_count": like_count,
         "like_count_id": like_count_id,
         "toggle_class": toggle_class,
-        "is_liked": toggle_class if liked else ""
+        "is_liked": toggle_class if liked else "",
+        "counts_text": counts_text,
+        "like_text": like_text
     }
 
 

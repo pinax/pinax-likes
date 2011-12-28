@@ -17,6 +17,12 @@ ChangeLog
   from liking anything and everything, which could potentially lead to security problems
   (eg. liking entries in permission tables, and thus seeing their content; liking
   administrative users and thus getting their username).
+- Added request objects to both `object_liked` and `object_unliked` signals.
+
+Backward Incompatibilities
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- pretty much all the template tags have been renamed and work slightly differently
 
 
 0.2

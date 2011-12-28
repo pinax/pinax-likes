@@ -27,14 +27,15 @@ def like_toggle(request, content_type_id, object_id):
     )
     
     if created:
-        object_liked.send(sender=Like, like=like)
+        object_liked.send(sender=Like, like=like, request=request)
     else:
         like.delete()
         object_unliked.send(
             sender=Like,
             object=content_type.get_object_for_this_type(
                 pk=object_id
-            )
+            ),
+            request=request
         )
     
     if request.is_ajax():

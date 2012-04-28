@@ -1,4 +1,5 @@
-jQuery(function($) {
+!function($){
+    "use strict";
 
     var PhileoLikes = function(form, options) {
         this.options = $.extend({}, $.fn.phileo.defaults, options);
@@ -39,4 +40,4 @@ jQuery(function($) {
         toggle_class: 'phileo-liked',
         count: false
     };
-});
+}( window.jQuery || window.ender );

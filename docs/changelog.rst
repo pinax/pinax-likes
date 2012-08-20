@@ -6,9 +6,11 @@ ChangeLog
 0.4
 ---
 
+- Fixed isinstance check to check ``models.Model`` instead of ``models.base.ModelBase``
 - Added permission checking
 - Added rendering of HTML in the ajax response to liking
 - Got rid of all the js/css cruft; up to site owner now but ships with bootstrap/bootstrap-ajax enabled templates
+- Updated use of ``datetime.datetime.now`` to ``timezone.now``
 
 Backward Incompatibilities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

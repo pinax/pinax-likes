@@ -3,6 +3,11 @@
 ChangeLog
 =========
 
+0.4.1
+-----
+
+- Made the link in the default widget template a bootstrap button
+
 0.4
 ---
 

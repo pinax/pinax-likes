@@ -1,12 +1,11 @@
 from django import template
-from django.conf import settings
-from django.core.urlresolvers import reverse
 
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
-from phileo.utils import _allowed, LIKABLE_MODELS
+from phileo.utils import _allowed, widget_context
+from phileo.settings import LIKABLE_MODELS
 
 register = template.Library()
 
@@ -121,83 +120,9 @@ def likes_count(obj):
     ).count()
 
 
-@register.inclusion_tag("phileo/_css.html")
-def phileo_css():
-    return {"STATIC_URL": settings.STATIC_URL}
-
-
-@register.inclusion_tag("phileo/_js.html")
-def phileo_js():
-    return {"STATIC_URL": settings.STATIC_URL}
-
-
-@register.inclusion_tag("phileo/_widget_js.html")
-def phileo_widget_js(user, obj, widget_id=None, like_type="like", toggle_class="phileo-liked"):
-    ct = ContentType.objects.get_for_model(obj)
-    
-    if widget_id == None:
-        widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
-    
-    like_count_id = "%s_count" % widget_id
-    
-    return {
-        "user": user,
-        "widget_id": widget_id,
-        "like_count_id": like_count_id,
-        "toggle_class": toggle_class
-    }
-
-
 @register.inclusion_tag("phileo/_widget.html")
-def phileo_widget(user, obj, like_text="Like|Unlike", counts_text="like|likes", widget_id=None, like_type="like", toggle_class="phileo-liked"):
-    ct = ContentType.objects.get_for_model(obj)
-    
-    if "|" in like_text:
-        like_text = like_text.split("|")
-    else:
-        like_text = ("Like", "Unlike")
-    
-    if "|" in counts_text:
-        counts_text = counts_text.split("|")
-    else:
-        counts_text = ("like", "likes")
-    
-    like_count = Like.objects.filter(
-       receiver_content_type = ct,
-       receiver_object_id = obj.pk
-    ).count()
-    
-    if widget_id == None:
-        widget_id = "phileo_%s_%s_%s" % (like_type, ct.pk, obj.pk)
-    
-    like_count_id = "%s_count" % widget_id
-    
-    if user.is_anonymous():
-        liked = False
-        like_url = settings.LOGIN_URL
-    else:
-        like_url = reverse("phileo_like_toggle", kwargs={
-            "content_type_id": ct.id,
-            "object_id": obj.pk
-        })
-        liked = Like.objects.filter(
-           sender = user,
-           receiver_content_type = ct,
-           receiver_object_id = obj.pk
-        ).exists()
-    
-    return {
-        "user": user,
-        "like_url": like_url,
-        "widget_id": widget_id,
-        "like_type": like_type,
-        "like_count": like_count,
-        "like_count_id": like_count_id,
-        "toggle_class": toggle_class,
-        "is_liked": toggle_class if liked else "",
-        "counts_text": counts_text,
-        "like_text": like_text
-    }
+def phileo_widget(user, obj):
+    return widget_context(user, obj)
 
 
 class LikedObjectsNode(template.Node):

@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseForbidden
 from django.utils import simplejson as json
 from django.shortcuts import get_object_or_404, redirect
+from django.template import RequestContext
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
 from django.contrib.auth.decorators import login_required
@@ -8,6 +10,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from phileo.models import Like
 from phileo.signals import object_liked, object_unliked
+from phileo.utils import widget_context
 
 
 @login_required
@@ -36,13 +39,16 @@ def like_toggle(request, content_type_id, object_id):
         )
     
     if request.is_ajax():
-        return HttpResponse(json.dumps({
-            "likes_count": Like.objects.filter(
-                receiver_content_type=content_type,
-                receiver_object_id=object_id
-            ).count(),
-            "liked": created,
-        
-        }), mimetype="application/json")
+        html_ctx = widget_context(request.user, obj)
+        data = {
+            "html": render_to_string(
+                "phileo/_widget.html",
+                html_ctx,
+                context_instance=RequestContext(request)
+            ),
+            "likes_count": html_ctx["like_count"],
+            "liked": html_ctx["liked"],
+        }
+        return HttpResponse(json.dumps(data), mimetype="application/json")
     
     return redirect(request.META["HTTP_REFERER"])

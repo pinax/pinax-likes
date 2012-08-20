@@ -1,17 +1,15 @@
-<form class="phileo {{ is_liked }} {{ like_type }}" action="{{ like_url }}" method="POST" id="{{ widget_id }}">
-    {% csrf_token %}
-    {% if user.is_authenticated %}
-        <input type="submit"
-        	   class="phileo-toggle"
-        	   data-like-text="{{ like_text.0 }}"
-        	   data-unlike-text="{{ like_text.1 }}"
-        	   value="{% if is_liked %}{{ like_text.1 }}{% else %}{{ like_text.0 }}{% endif %}" />
+<div class="phileo">
+    {% if can_like %}
+        <a class="ajax"
+           data-method="post"
+           data-replace-closest=".phileo"
+           data-spinner="off"
+           href="{{ like_url }}">
+            <i class="icon {{ like_class }}"></i>
+            {{ like_text }}
+        </a>
     {% endif %}
-    <span class="phileo-count">
-        <span id="{{ like_count_id }}"
-              data-counts-text="{{ counts_text.0 }}"
-              data-counts-text-plural="{{ counts_text.1 }}">
-            {{ like_count }} {% if like_count > 1 or like_count == 0 %}{{ counts_text.1 }}{% else %}{{ counts_text.0 }}{% endif %}
-        </span>
+    <span class="count">
+        {{ like_count }} {{ counts_text }}
     </span>
-</form>
+</div>

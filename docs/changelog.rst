@@ -7,7 +7,8 @@ ChangeLog
 ---
 
 - Added permission checking
-
+- Added rendering of HTML in the ajax response to liking
+- Got rid of all the js/css cruft; up to site owner now but ships with bootstrap/bootstrap-ajax enabled templates
 
 Backward Incompatibilities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -15,6 +16,9 @@ Backward Incompatibilities
 - Added an auth_backend to check permissions, you can just add the `phileo.auth_backends.PermCheckBackend`
   and do nothing else, or you can implement you own backend checking the `phileo.can_like`
   permission against the object and user according to your own business logic.
+- No more ``phileo_css``, ``phileo_js``, or ``phileo_widget_js`` tags.
+- ``PHILEO_LIKABLE_MODELS`` has changed from a ``list`` to a ``dict``
+- ``phileo_widget`` optional parameters have been removed and instead put into per model settings
 
 
 0.3

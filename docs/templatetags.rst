@@ -14,16 +14,6 @@ This simple returns the count of likes for a given object::
 Template Tags
 =============
 
-likes_css
----------
-
-This renders some css style sheets that will style the widget.::
-
-    {% phileo_css %}
-
-It renders "phileo/_css.html" and can be overridden as desired.
-
-
 render_like
 -----------
 
@@ -47,36 +37,17 @@ basis:
 * phileo/_like.html
 
 
-phileo_js
----------
-
-This renders some script tags that are needed to make the widget work.::
-
-    {% phileo_js %}
-
-It renders "phileo/_js.html" and can be overridden as desired.
-
-
 phileo_widget
-------------
+-------------
 
 This renders a fragement of html that will be what the user will click
 on to unlike or like objects. It only has two required parameters, which
 are the user and the object.::
 
-    {% likes_widget user object like_text="Like|Unlike" counts_text="like|likes" [widget_id="unique_id" like_type="likes" toggle_class="phileo-liked"] %}
+    {% likes_widget user object %}
 
 
 It renders "phileo/_widget.html" and can be overridden as desired.
-
-
-phileo_widget_js
-----------------
-
-This renders a script tag that will use the jquery plugin that `phileo_js`
-includes into the page.
-
-It renders "phileo/_widget_js.html" and can be overriden as desired.
 
 
 liked

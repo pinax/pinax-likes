@@ -14,6 +14,12 @@ Installation
         "phileo",
     )
 
+* Add the models that you want to be likeable to ``PHILEO_LIKABLE_MODELS``:
+
+    PHILEO_LIKABLE_MODELS = {
+        "app.Model": {}  # can override default config settings for each model here
+    }
+
 * Add ``'phileo.auth_backends.CanLikeBackend'`` to your ``AUTHENTICATION_BACKENDS``
   (or use your own custom version checking against the ``phileo.can_like`` permission):
 

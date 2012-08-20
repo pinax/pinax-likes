@@ -1,6 +1,5 @@
-import datetime
-
 from django.db import models
+from django.utils import timezone
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -18,7 +17,7 @@ class Like(models.Model):
         fk_field="receiver_object_id"
     )
     
-    timestamp = models.DateTimeField(default=datetime.datetime.now)
+    timestamp = models.DateTimeField(default=timezone.now)
     
     class Meta:
         unique_together = (

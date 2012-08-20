@@ -8,9 +8,7 @@ class CanLikeBackend(ModelBackend):
     supports_anonymous_user = True
     
     def is_allowed(self, obj):
-        return _allowed(
-            "%s.%s" % (obj.__class__.__module__, obj.__class__.__name__)
-        )
+        return _allowed(obj)
     
     def has_perm(self, user, perm, obj=None):
         if perm == "phileo.can_like":

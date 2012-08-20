@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.db.models.base import ModelBase
+from django.db import models
 
 from django.contrib.contenttypes.models import ContentType
 
@@ -12,13 +12,12 @@ def name(obj):
 
 
 def _allowed(model):
-    if isinstance(model, ModelBase):
+    if isinstance(model, models.Model):
         app_model = name(model)
     elif isinstance(model, str):
         app_model = model
     else:
         app_model = str(model)
-    
     return app_model in LIKABLE_MODELS
 
 

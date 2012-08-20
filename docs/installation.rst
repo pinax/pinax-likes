@@ -14,6 +14,15 @@ Installation
         "phileo",
     )
 
+* Add ``'phileo.auth_backends.CanLikeBackend'`` to your ``AUTHENTICATION_BACKENDS``
+  (or use your own custom version checking against the ``phileo.can_like`` permission):
+
+    AUTHENTICATION_BACKENDS = [
+      ...
+      "phileo.auth_backends.CanLikeBackend",
+      ...
+    ]
+
 * Lastly you will want to add `phileo.urls` to your urls definition::
 
     ...

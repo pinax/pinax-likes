@@ -3,6 +3,20 @@
 ChangeLog
 =========
 
+0.4
+---
+
+- Added permission checking
+
+
+Backward Incompatibilities
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Added an auth_backend to check permissions, you can just add the `phileo.auth_backends.PermCheckBackend`
+  and do nothing else, or you can implement you own backend checking the `phileo.can_like`
+  permission against the object and user according to your own business logic.
+
+
 0.3
 ---
 

@@ -16,8 +16,8 @@ You need to add each model that you want to be likable to the
     ]
 
 
-In the views
-------------
+In the templates
+----------------
 
 Let's say you have a detail page for a blog post. First you will want
 to load the tags::

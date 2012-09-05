@@ -3,6 +3,18 @@
 Filters
 =======
 
+who_likes
+---------
+
+An assignment tag that fetches a list of likes for a given object::
+
+    {% who_likes car as car_likes %}
+    
+    {% for like in car_likes %}
+        <div class="like">{{ like.user }} likes {{ car }}</div>
+    {% endfor %}
+
+
 likes_count
 -----------
 

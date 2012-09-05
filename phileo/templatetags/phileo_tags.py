@@ -10,6 +10,14 @@ from phileo.settings import LIKABLE_MODELS
 register = template.Library()
 
 
+@register.assignment_tag
+def who_likes(athlete):
+    return Like.objects.filter(
+        receiver_content_type=ContentType.objects.get_for_model(athlete),
+        receiver_object_id=athlete.pk
+    )
+
+
 class LikesNode(template.Node):
     
     def __init__(self, user, model_list, varname):

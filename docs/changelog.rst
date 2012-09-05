@@ -3,6 +3,11 @@
 ChangeLog
 =========
 
+0.5
+---
+
+- Added a `who_likes` template tag that returns a list of `Like` objects for given object
+
 0.4.1
 -----
 

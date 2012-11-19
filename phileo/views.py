@@ -40,9 +40,12 @@ def like_toggle(request, content_type_id, object_id):
     
     if request.is_ajax():
         html_ctx = widget_context(request.user, obj)
+        template = "phileo/_widget.html"
+        if request.GET.get("t") == "b":
+            template = "phileo/_widget_brief.html"
         data = {
             "html": render_to_string(
-                "phileo/_widget.html",
+                template,
                 html_ctx,
                 context_instance=RequestContext(request)
             ),

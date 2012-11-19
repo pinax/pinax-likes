@@ -62,6 +62,13 @@ are the user and the object.::
 It renders "phileo/_widget.html" and can be overridden as desired.
 
 
+phileo_widget_brief
+-------------------
+
+Same, functionally, as `phileo_widget`, except that it renders
+"phileo/_widget_brief.html" instead.
+
+
 liked
 -----
 

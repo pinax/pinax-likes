@@ -133,6 +133,11 @@ def phileo_widget(user, obj):
     return widget_context(user, obj)
 
 
+@register.inclusion_tag("phileo/_widget_brief.html")
+def phileo_widget_brief(user, obj):
+    return widget_context(user, obj)
+
+
 class LikedObjectsNode(template.Node):
     
     def __init__(self, objects, user, varname):

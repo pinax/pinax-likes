@@ -3,6 +3,12 @@
 ChangeLog
 =========
 
+0.6
+---
+
+- Added a `phileo_widget_brief` to display a brief widget template (`phileo/_widget_brief.html`)
+
+
 0.5
 ---
 

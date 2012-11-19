@@ -108,7 +108,7 @@ def render_like(parser, token):
     tokens = token.split_contents()
     var = tokens[1]
     
-    return  LikeRenderer(var)
+    return LikeRenderer(var)
 
 
 @register.filter

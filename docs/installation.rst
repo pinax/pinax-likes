@@ -1,5 +1,22 @@
 .. _installation:
 
+Requirements
+============
+
+The view to handle the like toggling conforms to an ajax response that
+bootstrap-ajax_ understands. Furthermore, the templates that ship with
+this project will work seemlessly with bootstrap-ajax. All you have to
+do is include the bootstrap-ajax in your base template somewhere like:
+
+    {% load staticfiles %}
+    <script src="{% static "js/bootstrap-ajax.js" %}"></script>
+
+This of course is optional. You can roll your own javascript handling
+as the view also returns data in addition to rendered HTML. Furthermore,
+if you don't want ajax at all the view will handle a regular POST and
+perform a redirect.
+
+
 Installation
 ============
 
@@ -34,3 +51,5 @@ Installation
     ...
     url(r"^likes/", include("phileo.urls")),
     ...
+
+:: _bootstrap-ajax: https://github.com/eldarion/bootstrap-ajax

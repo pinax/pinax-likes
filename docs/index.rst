@@ -21,4 +21,4 @@ Contents
  templatetags
  signals
  usage
- 
+ ajax

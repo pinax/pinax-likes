@@ -5,6 +5,12 @@ Phileo
 a liking app
 
 
+Documentation
+-------------
+
+Documentation can be found online at http://phileo.readthedocs.org/.
+
+
 Commercial Support
 ------------------
 

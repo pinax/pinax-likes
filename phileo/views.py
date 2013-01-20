@@ -1,5 +1,6 @@
+import json
+
 from django.http import HttpResponse, HttpResponseForbidden
-from django.utils import simplejson as json
 from django.shortcuts import get_object_or_404, redirect
 from django.template import RequestContext
 from django.template.loader import render_to_string

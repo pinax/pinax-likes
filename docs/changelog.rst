@@ -3,6 +3,11 @@
 ChangeLog
 =========
 
+1.0
+----
+
+- Added an admin.py
+
 0.6
 ---
 

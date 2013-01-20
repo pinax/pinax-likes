@@ -8,7 +8,7 @@ from phileo.settings import LIKABLE_MODELS
 
 
 def name(obj):
-    return  "%s.%s" % (obj._meta.app_label, obj._meta.object_name)
+    return "%s.%s" % (obj._meta.app_label, obj._meta.object_name)
 
 
 def _allowed(model):

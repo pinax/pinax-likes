@@ -27,4 +27,4 @@ class Like(models.Model):
         )
 
     def __unicode__(self):
-        return "%s likes %s" % (self.sender, self.receiver)
+        return u"%s likes %s" % (self.sender, self.receiver)

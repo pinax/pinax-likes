@@ -52,4 +52,4 @@ Installation
     url(r"^likes/", include("phileo.urls")),
     ...
 
-:: _eldarion-ajax: https://github.com/eldarion/eldarion-ajax
+.. _eldarion-ajax: https://github.com/eldarion/eldarion-ajax

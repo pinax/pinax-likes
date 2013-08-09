@@ -4,12 +4,12 @@ Requirements
 ============
 
 The view to handle the like toggling conforms to an ajax response that
-bootstrap-ajax_ understands. Furthermore, the templates that ship with
-this project will work seemlessly with bootstrap-ajax. All you have to
-do is include the bootstrap-ajax in your base template somewhere like::
+eldarion-ajax_ understands. Furthermore, the templates that ship with
+this project will work seemlessly with eldarion-ajax. All you have to
+do is include the eldarion-ajax in your base template somewhere like::
 
     {% load staticfiles %}
-    <script src="{% static "js/bootstrap-ajax.js" %}"></script>
+    <script src="{% static "js/eldarion-ajax.js" %}"></script>
 
 This of course is optional. You can roll your own javascript handling
 as the view also returns data in addition to rendered HTML. Furthermore,
@@ -52,4 +52,4 @@ Installation
     url(r"^likes/", include("phileo.urls")),
     ...
 
-:: _bootstrap-ajax: https://github.com/eldarion/bootstrap-ajax
+.. _eldarion-ajax: https://github.com/eldarion/eldarion-ajax

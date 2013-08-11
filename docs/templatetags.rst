@@ -3,6 +3,17 @@
 Filters
 =======
 
+likes_count
+-----------
+
+This simple returns the count of likes for a given object::
+
+    {{ obj|likes_count }}
+
+
+Template Tags
+=============
+
 who_likes
 ---------
 
@@ -15,16 +26,6 @@ An assignment tag that fetches a list of likes for a given object::
     {% endfor %}
 
 
-likes_count
------------
-
-This simple returns the count of likes for a given object::
-
-    {{ obj|likes_count }}
-
-
-Template Tags
-=============
 
 render_like
 -----------
@@ -56,7 +57,7 @@ This renders a fragement of html that will be what the user will click
 on to unlike or like objects. It only has two required parameters, which
 are the user and the object.::
 
-    {% likes_widget user object %}
+    {% phileo_widget user object %}
 
 
 It renders "phileo/_widget.html" and can be overridden as desired.

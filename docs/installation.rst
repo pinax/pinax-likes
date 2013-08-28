@@ -9,7 +9,7 @@ this project will work seemlessly with eldarion-ajax. All you have to
 do is include the eldarion-ajax in your base template somewhere like::
 
     {% load staticfiles %}
-    <script src="{% static "js/eldarion-ajax.js" %}"></script>
+    <script src="{% static "js/eldarion-ajax.min.js" %}"></script>
 
 This of course is optional. You can roll your own javascript handling
 as the view also returns data in addition to rendered HTML. Furthermore,

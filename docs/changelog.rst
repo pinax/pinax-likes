@@ -3,6 +3,15 @@
 ChangeLog
 =========
 
+1.1
+---
+
+- Fixed urls.py deprecation warnings
+- Fised unicode string
+- Added support for custom User models
+- Documentation udates
+
+
 1.0
 ----
 

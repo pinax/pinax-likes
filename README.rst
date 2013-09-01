@@ -2,7 +2,7 @@
 Phileo
 ======
 
-a liking app
+A liking app
 
 
 Documentation

@@ -7,9 +7,9 @@ ChangeLog
 ---
 
 - Fixed urls.py deprecation warnings
-- Fised unicode string
+- Fixed unicode string
 - Added support for custom User models
-- Documentation udates
+- Documentation updates
 
 
 1.0

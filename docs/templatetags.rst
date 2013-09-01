@@ -40,9 +40,9 @@ combines well with `likes`.::
         {% endfor %}
     </ul>
 
-The `render_like` tag looks in the following place for the template to
+The `render_like` tag looks in the following places for the template to
 render. Any of them can be overwritten as needed, allowing you to
-customise the rendering of the like on a per model and per application
+customize the rendering of the like on a per model and per application
 basis:
 
 * phileo/app_name/model.html
@@ -53,7 +53,7 @@ basis:
 phileo_widget
 -------------
 
-This renders a fragement of html that will be what the user will click
+This renders a fragment of html that will be what the user will click
 on to unlike or like objects. It only has two required parameters, which
 are the user and the object.::
 
@@ -73,7 +73,7 @@ Same, functionally, as `phileo_widget`, except that it renders
 liked
 -----
 
-The "liked" template tag will decorate a iterable of objects given
+The "liked" template tag will decorate an iterable of objects given
 a particular user, with a "liked" boolean indicating whether or not
 the user likes each object in the iterable::
     

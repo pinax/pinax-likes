@@ -25,6 +25,14 @@ def get_config(obj):
     return LIKABLE_MODELS[name(obj)]
 
 
+def per_model_perm_check(user, obj):
+    config = get_config(obj)
+    if callable(config.get("allowed")):
+        return config["allowed"](user, obj)
+    else:
+        return True
+
+
 def widget_context(user, obj):
     ct = ContentType.objects.get_for_model(obj)
     config = get_config(obj)
@@ -36,29 +44,29 @@ def widget_context(user, obj):
         counts_text = config["count_text_singular"]
     else:
         counts_text = config["count_text_plural"]
-    
+
     can_like = user.has_perm("phileo.can_like", obj)
-    
+
     ctx = {
         "can_like": can_like,
         "like_count": like_count,
         "counts_text": counts_text,
     }
-    
+
     if can_like:
         liked = Like.objects.filter(
            sender=user,
            receiver_content_type=ct,
            receiver_object_id=obj.pk
         ).exists()
-        
+
         if liked:
             like_text = config["like_text_on"]
             like_class = config["css_class_on"]
         else:
             like_text = config["like_text_off"]
             like_class = config["css_class_off"]
-        
+
         ctx.update({
             "like_url": reverse("phileo_like_toggle", kwargs={
                 "content_type_id": ct.id,

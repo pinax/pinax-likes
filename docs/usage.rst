@@ -9,11 +9,11 @@ In your settings
 You need to add each model that you want to be likable to the
 `PHILEO_LIKABLE_MODELS` setting::
 
-    PHILEO_LIKABLE_MODELS = [
-        "profiles.Profile",
-        "videos.Video",
-        "biblion.Post"
-    ]
+    PHILEO_LIKABLE_MODELS = {
+        "profiles.Profile": {},
+        "videos.Video": {},
+        "biblion.Post": {},
+    }
 
 
 In the templates

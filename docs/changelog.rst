@@ -3,6 +3,16 @@
 ChangeLog
 =========
 
+1.2
+---
+
+ - ``like_text_off`` and ``css_class_off`` are passed into widget even if
+   ``can_like`` is False.
+ - ``PHILEO_LIKABLE_MODELS`` entries now take an optional extra value
+   ``allowed`` whose value should be a callable taking ``user`` and ``obj`` and
+   returning True or False depending on whether the user is allowed to like
+   that particular object
+
 1.1.1
 -----
 

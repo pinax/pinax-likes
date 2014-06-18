@@ -76,4 +76,10 @@ def widget_context(user, obj):
             "like_text": like_text,
             "like_class": like_class
         })
+    else:
+        ctx.update({
+            "like_text": config["like_text_off"],
+            "like_class": config["css_class_off"],
+        })
+
     return ctx

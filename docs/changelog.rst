@@ -3,6 +3,11 @@
 ChangeLog
 =========
 
+1.1.1
+-----
+
+- Fixed regression causing error when widget displayed while unauth'd
+
 1.1
 ---
 

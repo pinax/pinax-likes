@@ -2,6 +2,22 @@
 Phileo
 ======
 
+.. image:: https://img.shields.io/travis/eldarion/biblion.svg
+    :target: https://travis-ci.org/eldarion/biblion
+
+.. image:: https://img.shields.io/coveralls/eldarion/biblion.svg
+    :target: https://coveralls.io/r/eldarion/biblion
+
+.. image:: https://img.shields.io/pypi/dm/biblion.svg
+    :target:  https://pypi.python.org/pypi/biblion/
+
+.. image:: https://img.shields.io/pypi/v/biblion.svg
+    :target:  https://pypi.python.org/pypi/biblion/
+
+.. image:: https://img.shields.io/badge/license-BSD-blue.svg
+    :target:  https://pypi.python.org/pypi/biblion/
+
+
 A liking app
 
 

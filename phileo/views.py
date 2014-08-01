@@ -19,16 +19,16 @@ from phileo.utils import widget_context
 def like_toggle(request, content_type_id, object_id):
     content_type = get_object_or_404(ContentType, pk=content_type_id)
     obj = content_type.get_object_for_this_type(pk=object_id)
-    
+
     if not request.user.has_perm("phileo.can_like", obj):
         return HttpResponseForbidden()
-    
+
     like, created = Like.objects.get_or_create(
         sender=request.user,
         receiver_content_type=content_type,
         receiver_object_id=object_id
     )
-    
+
     if created:
         object_liked.send(sender=Like, like=like, request=request)
     else:
@@ -38,7 +38,7 @@ def like_toggle(request, content_type_id, object_id):
             object=obj,
             request=request
         )
-    
+
     if request.is_ajax():
         html_ctx = widget_context(request.user, obj)
         template = "phileo/_widget.html"
@@ -54,5 +54,5 @@ def like_toggle(request, content_type_id, object_id):
             "liked": html_ctx["liked"],
         }
         return HttpResponse(json.dumps(data), mimetype="application/json")
-    
+
     return redirect(request.META["HTTP_REFERER"])

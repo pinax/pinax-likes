@@ -20,7 +20,7 @@ who_likes
 An assignment tag that fetches a list of likes for a given object::
 
     {% who_likes car as car_likes %}
-    
+
     {% for like in car_likes %}
         <div class="like">{{ like.sender.get_full_name }} likes {{ car }}</div>
     {% endfor %}
@@ -76,7 +76,7 @@ liked
 The "liked" template tag will decorate an iterable of objects given
 a particular user, with a "liked" boolean indicating whether or not
 the user likes each object in the iterable::
-    
+
     {% liked objects by request.user as varname %}
     {% for obj in varname %
         <div>{% if obj.liked %}* {% endif %}{{ obj.title }}</div>

@@ -37,8 +37,8 @@ def widget_context(user, obj):
     ct = ContentType.objects.get_for_model(obj)
     config = get_config(obj)
     like_count = Like.objects.filter(
-       receiver_content_type=ct,
-       receiver_object_id=obj.pk
+        receiver_content_type=ct,
+        receiver_object_id=obj.pk
     ).count()
     if like_count == 1:
         counts_text = config["count_text_singular"]
@@ -55,9 +55,9 @@ def widget_context(user, obj):
 
     if can_like:
         liked = Like.objects.filter(
-           sender=user,
-           receiver_content_type=ct,
-           receiver_object_id=obj.pk
+            sender=user,
+            receiver_content_type=ct,
+            receiver_object_id=obj.pk
         ).exists()
 
         if liked:

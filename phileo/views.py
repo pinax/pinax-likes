@@ -53,6 +53,6 @@ def like_toggle(request, content_type_id, object_id):
             "likes_count": html_ctx["like_count"],
             "liked": html_ctx["liked"],
         }
-        return HttpResponse(json.dumps(data), mimetype="application/json")
+        return HttpResponse(json.dumps(data), content_type="application/json")
 
     return redirect(request.META["HTTP_REFERER"])

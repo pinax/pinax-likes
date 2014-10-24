@@ -1,2 +1,4 @@
-# following PEP 386
-__version__ = "1.2.3"
+import pkg_resources
+
+
+__version__ = pkg_resources.get_distribution("phileo").version

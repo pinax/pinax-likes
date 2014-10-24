@@ -7,7 +7,7 @@ A liking app
 Development
 -----------
 
-The source repository can be found at https://github.com/eldarion/phileo
+The source repository can be found at https://github.com/pinax/phileo
 
 
 Contents

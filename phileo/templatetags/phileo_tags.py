@@ -138,6 +138,50 @@ def phileo_widget_brief(user, obj):
     return widget_context(user, obj)
 
 
+class ObjectDecorator(object):
+
+    def __init__(self, user, objects):
+        self.user = user
+        self._objects = objects
+        self._is_stream = None
+
+    def is_stream(self):
+        if self._is_stream is None and len(self._objects) > 0:
+            self._is_stream = not hasattr(self._objects[0], "_meta")
+        return self._is_stream
+
+    def get_id(self, obj):
+        return self.is_stream() and obj.item.id or obj.id
+
+    @property
+    def indexed(self):
+        if not hasattr(self, "_indexed"):
+            self._indexed = {}
+            for obj in self._objects:
+                if hasattr(obj, "cast") and callable(obj.cast):
+                    obj = obj.cast()
+                ct = ContentType.objects.get_for_model(self.is_stream() and obj.item or obj)
+                if ct not in self._indexed.keys():
+                    self._indexed[ct] = []
+                obj.liked = False
+                self._indexed[ct].append(obj)
+        return self._indexed
+
+    def objects(self):
+        for ct in self.indexed.keys():
+            likes = Like.objects.filter(
+                sender=self.user,
+                receiver_content_type=ct,
+                receiver_object_id__in=[self.get_id(o) for o in self.indexed[ct]]
+            )
+
+            for obj in self.indexed[ct]:
+                for like in likes:
+                    if like.receiver_object_id == self.get_id(obj):
+                        obj.liked = True
+                yield obj
+
+
 class LikedObjectsNode(template.Node):
 
     def __init__(self, objects, user, varname):
@@ -145,41 +189,10 @@ class LikedObjectsNode(template.Node):
         self.user = template.Variable(user)
         self.varname = varname
 
-    def get_objects(self, user, objects):
-        is_stream = None
-        get_id = None
-        indexed = {}
-
-        for obj in objects:
-            if hasattr(obj, "cast") and callable(obj.cast):
-                obj = obj.cast()
-            if is_stream is None and get_id is None:
-                is_stream = not hasattr(obj, "_meta")
-                get_id = lambda x: is_stream and x.item.id or x.id
-
-            ct = ContentType.objects.get_for_model(is_stream and obj.item or obj)
-            if ct not in indexed.keys():
-                indexed[ct] = []
-            obj.liked = False
-            indexed[ct].append(obj)
-
-        for ct in indexed.keys():
-            likes = Like.objects.filter(
-                sender=user,
-                receiver_content_type=ct,
-                receiver_object_id__in=[get_id(o) for o in indexed[ct]]
-            )
-
-            for obj in indexed[ct]:
-                for like in likes:
-                    if like.receiver_object_id == get_id(obj):
-                        obj.liked = True
-                yield obj
-
     def render(self, context):
         user = self.user.resolve(context)
         objects = self.objects.resolve(context)
-        context[self.varname] = self.get_objects(user, objects)
+        context[self.varname] = ObjectDecorator(user, objects).objects()
         return ""
 
 

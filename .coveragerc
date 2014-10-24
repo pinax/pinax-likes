@@ -1,0 +1,7 @@
+[run]
+source = phileo
+omit = phileo/tests/*,phileo/admin.py
+branch = true
+
+[report]
+omit = phileo/tests/*,phileo/admin.py

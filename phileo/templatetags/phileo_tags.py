@@ -27,7 +27,7 @@ class LikesNode(template.Node):
         if len(model_list) == 0:
             # These need to look like strings, otherwise they will be treated as variables
             # when they are `resolve()`d later
-            model_list = ['"%s"' % model for model in LIKABLE_MODELS]
+            model_list = ['"{}"'.format(model) for model in LIKABLE_MODELS]
 
         self.model_list = [template.Variable(m) for m in model_list]
         self.varname = varname
@@ -88,8 +88,8 @@ class LikeRenderer(template.Node):
         }
 
         return render_to_string([
-            'phileo/%s/%s.html' % (app_name, model_name),
-            'phileo/%s/like.html' % (app_name),
+            'phileo/{}/{}.html'.format(app_name, model_name),
+            'phileo/{}/like.html'.format(app_name),
             'phileo/_like.html',
         ], like_context, context)
 

@@ -28,7 +28,7 @@ setup(
     author_email=AUTHOR_EMAIL,
     license="MIT",
     url=URL,
-    packages=find_packages(exclude=["tests.*", "tests"]),
+    packages=find_packages(),
     package_data={
         "phileo": [
             "templates/phileo/_like.html",

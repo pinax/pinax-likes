@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-import decimal
 import os
 import sys
 
 import django
 
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 
 DEFAULT_SETTINGS = dict(
@@ -29,6 +29,7 @@ DEFAULT_SETTINGS = dict(
         "django.contrib.sessions",
         "django.contrib.sites",
         "phileo",
+        "phileo.tests"
     ],
     SITE_ID=1,
     PHILEO_LIKABLE_MODELS={
@@ -63,8 +64,7 @@ def runtests(*test_args):
         runner_class = DjangoTestSuiteRunner
         test_args = ["tests"]
 
-    failures = runner_class(
-        verbosity=1, interactive=True, failfast=False).run_tests(test_args)
+    failures = runner_class(verbosity=1, interactive=True, failfast=False).run_tests(test_args)
     sys.exit(failures)
 
 

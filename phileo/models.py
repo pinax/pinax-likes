@@ -33,4 +33,4 @@ class Like(models.Model):
         )
 
     def __str__(self):
-        return "{} likes {}".format(self.sender, self.receiver)
+        return "{0} likes {1}".format(self.sender, self.receiver)

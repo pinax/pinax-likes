@@ -88,8 +88,8 @@ class LikeRenderer(template.Node):
         }
 
         return render_to_string([
-            'phileo/{}/{}.html'.format(app_name, model_name),
-            'phileo/{}/like.html'.format(app_name),
+            'phileo/{0}/{1}.html'.format(app_name, model_name),
+            'phileo/{0}/like.html'.format(app_name),
             'phileo/_like.html',
         ], like_context, context)
 

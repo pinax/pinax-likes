@@ -16,7 +16,7 @@ DESCRIPTION = "a liking app"
 AUTHOR = "Pinax Team"
 AUTHOR_EMAIL = "team@pinaxproject.com"
 URL = "http://github.com/pinax/phileo"
-VERSION = "1.3"
+VERSION = "1.3.1"
 
 
 setup(

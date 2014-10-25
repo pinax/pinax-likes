@@ -18,55 +18,18 @@ def who_likes(obj):
     )
 
 
-class LikesNode(template.Node):
-
-    def __init__(self, user, model_list, varname):
-        self.user = template.Variable(user)
-
-        # Default to all the registered models
-        if len(model_list) == 0:
-            # These need to look like strings, otherwise they will be treated as variables
-            # when they are `resolve()`d later
-            model_list = ['"{}"'.format(model) for model in LIKABLE_MODELS]
-
-        self.model_list = [template.Variable(m) for m in model_list]
-        self.varname = varname
-
-    def render(self, context):
-        user = self.user.resolve(context)
-        content_types = []
-
-        for raw_model_name in self.model_list:
-            try:
-                model_name = raw_model_name.resolve(context)
-            except template.VariableDoesNotExist:
-                continue
-
-            if not _allowed(model_name):
-                continue
-
-            app, model = model_name.split(".")
-            content_type = ContentType.objects.get(app_label=app, model__iexact=model)
-            content_types.append(content_type)
-
-        context[self.varname] = Like.objects.filter(
-            sender=user,
-            receiver_content_type__in=content_types
+@register.assignment_tag
+def likes(user, *models):
+    content_types = []
+    model_list = models or LIKABLE_MODELS.keys()
+    for model in model_list:
+        if not _allowed(model):
+            continue
+        app, model = model.split(".")
+        content_types.append(
+            ContentType.objects.get(app_label=app, model__iexact=model)
         )
-        return ""
-
-
-@register.tag
-def likes(parser, token):
-    """
-    {% likes user "app.Model" "app.Model" "app.Model" as like_objs %}
-    """
-    tokens = token.split_contents()
-    user = tokens[1]
-    varname = tokens[-1]
-    model_list = tokens[2:-2]
-
-    return LikesNode(user, model_list, varname)
+    return Like.objects.filter(sender=user, receiver_content_type__in=content_types)
 
 
 class LikeRenderer(template.Node):

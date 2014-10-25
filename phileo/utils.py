@@ -14,10 +14,12 @@ def name(obj):
 def _allowed(model):
     if isinstance(model, models.Model):
         app_model = name(model)
+    elif hasattr(model, "_meta"):
+        app_model = name(model)
     elif isinstance(model, str):
         app_model = model
     else:
-        app_model = str(model)
+        return False
     return app_model in LIKABLE_MODELS
 
 

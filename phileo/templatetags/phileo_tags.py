@@ -11,10 +11,10 @@ register = template.Library()
 
 
 @register.assignment_tag
-def who_likes(athlete):
+def who_likes(obj):
     return Like.objects.filter(
-        receiver_content_type=ContentType.objects.get_for_model(athlete),
-        receiver_object_id=athlete.pk
+        receiver_content_type=ContentType.objects.get_for_model(obj),
+        receiver_object_id=obj.pk
     )
 
 

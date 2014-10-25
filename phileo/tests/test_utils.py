@@ -5,7 +5,6 @@ from django.contrib.contenttypes.models import ContentType
 
 from .models import Demo
 
-from ..models import Like
 from ..utils import _allowed, get_config, per_model_perm_check
 
 
@@ -36,4 +35,3 @@ class UtilsTestCase(TestCase):
         patrick = User.objects.create_user(username="patrick")
         check = per_model_perm_check(patrick, Demo)
         self.assertTrue(check)
-

@@ -38,6 +38,12 @@ DEFAULT_SETTINGS = dict(
             "like_text_off": "like",
             "css_class_off": "fa-heart-o",
             "allowed": lambda user, obj: True
+        },
+        "tests.Demo": {
+            "like_text_on": "unlike",
+            "css_class_on": "fa-heart",
+            "like_text_off": "like",
+            "css_class_off": "fa-heart-o"
         }
     },
     AUTHENTICATION_BACKENDS=[

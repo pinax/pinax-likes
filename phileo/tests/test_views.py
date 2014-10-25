@@ -53,7 +53,7 @@ class LikeToggleTestCase(TestCase):
         response = like_toggle(request, self.user_content_type.pk, michael.pk)
         self.assertEquals(response.status_code, 200)
         self.assertTrue(self.like_qs.filter(receiver_object_id=michael.pk).exists())
-        data = json.loads(response.content)
+        data = json.loads(response.content.decode())
         self.assertEquals(data["likes_count"], 1)
         self.assertEquals(data["liked"], True)
         self.assertTrue("html" in data)

@@ -4,7 +4,12 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from ..models import Like
-from ..templatetags.phileo_tags import ObjectDecorator
+from ..templatetags.phileo_tags import (
+    ObjectDecorator,
+    who_likes as who_likes_tag,
+    likes as likes_tag,
+    likes_count as likes_count_tag
+)
 
 
 class ObjectDecoratorTestCase(TestCase):
@@ -28,3 +33,20 @@ class ObjectDecoratorTestCase(TestCase):
                 self.assertTrue(obj.liked)
             else:
                 self.assertFalse(obj.liked)
+
+    def test_who_likes(self):
+        likes = who_likes_tag(self.other_users[0])
+        self.assertTrue(likes.filter(sender=self.user).exists())
+
+    def test_likes_specific(self):
+        likes = likes_tag(self.user, "auth.User")
+        self.assertEquals(likes.count(), 1)
+        self.assertEquals(likes[0].receiver, self.other_users[0])
+
+    def test_likes_all(self):
+        likes = likes_tag(self.user)
+        self.assertEquals(likes.count(), 1)
+        self.assertEquals(likes[0].receiver, self.other_users[0])
+
+    def test_likes_count(self):
+        self.assertEquals(likes_count_tag(self.other_users[0]), 1)

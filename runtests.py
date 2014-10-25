@@ -39,7 +39,10 @@ DEFAULT_SETTINGS = dict(
             "css_class_off": "fa-heart-o",
             "allowed": lambda user, obj: True
         }
-    }
+    },
+    AUTHENTICATION_BACKENDS=[
+        "phileo.auth_backends.CanLikeBackend"
+    ]
 )
 
 

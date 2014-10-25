@@ -55,4 +55,4 @@ def like_toggle(request, content_type_id, object_id):
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    return redirect(request.META["HTTP_REFERER"])
+    return redirect(request.META.get("HTTP_REFERER", "/"))

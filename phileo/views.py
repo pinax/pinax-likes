@@ -23,21 +23,12 @@ def like_toggle(request, content_type_id, object_id):
     if not request.user.has_perm("phileo.can_like", obj):
         return HttpResponseForbidden()
 
-    like, created = Like.objects.get_or_create(
-        sender=request.user,
-        receiver_content_type=content_type,
-        receiver_object_id=object_id
-    )
+    like, liked = Like.like(request.user, content_type, object_id)
 
-    if created:
+    if liked:
         object_liked.send(sender=Like, like=like, request=request)
     else:
-        like.delete()
-        object_unliked.send(
-            sender=Like,
-            object=obj,
-            request=request
-        )
+        object_unliked.send(sender=Like, object=obj, request=request)
 
     if request.is_ajax():
         html_ctx = widget_context(request.user, obj)

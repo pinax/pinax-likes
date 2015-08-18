@@ -53,6 +53,7 @@ def widget_context(user, obj):
         "can_like": can_like,
         "like_count": like_count,
         "counts_text": counts_text,
+        "object": obj,
     }
 
     if can_like:

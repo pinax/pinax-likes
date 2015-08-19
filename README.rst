@@ -20,7 +20,7 @@ Phileo
     :target:  https://pypi.python.org/pypi/phileo/
 
 
-Phileo is a liking app for Django.
+phileo is a liking app for Django.
 
 Pinax is an open-source platform built on the Django Web Framework. It is an ecosystem of reusable Django apps, themes, and starter project templates. 
 This collection can be found at http://pinaxproject.com.

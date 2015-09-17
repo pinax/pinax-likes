@@ -10,45 +10,38 @@ def read(*parts):
         return fp.read()
 
 
-PACKAGE = "phileo"
-NAME = "phileo"
-DESCRIPTION = "a liking app"
-AUTHOR = "Pinax Team"
-AUTHOR_EMAIL = "team@pinaxproject.com"
-URL = "http://github.com/pinax/phileo"
-VERSION = "1.3.1"
-
-
 setup(
-    name=NAME,
-    version=VERSION,
-    description=DESCRIPTION,
+    author="Pinax Team",
+    author_email="team@pinaxproject.com",
+    description="a liking app for Django",
+    name="pinax-likes",
     long_description=read("README.rst"),
-    author=AUTHOR,
-    author_email=AUTHOR_EMAIL,
+    version="1.3.1",
+    url="http://pinax-likes.rtfd.org/",
     license="MIT",
-    url=URL,
     packages=find_packages(),
+    install_requires=[
+        "django-appconf>=0.6",
+    ],
     package_data={
-        "phileo": [
-            "templates/phileo/_like.html",
-            "templates/phileo/_widget.html",
-            "templates/phileo/_widget_brief.html"
+        "pinax.likes": [
+            "templates/pinax/likes/*",
         ]
     },
+    test_suite="runtests.runtests",
+    tests_require=[
+    ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
+        "Framework :: Django",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
-        "Framework :: Django",
-    ],
-    test_suite="runtests.runtests",
-    tests_require=[
+        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     zip_safe=False,
 )

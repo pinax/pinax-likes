@@ -3,8 +3,8 @@ from django.db import models
 
 from django.contrib.contenttypes.models import ContentType
 
-from phileo.models import Like
-from phileo.settings import LIKABLE_MODELS
+from .models import Like
+from .conf import settings
 
 
 def name(obj):
@@ -20,11 +20,11 @@ def _allowed(model):
         app_model = model
     else:
         return False
-    return app_model in LIKABLE_MODELS
+    return app_model in settings.PINAX_LIKES_LIKABLE_MODELS
 
 
 def get_config(obj):
-    return LIKABLE_MODELS[name(obj)]
+    return settings.PINAX_LIKES_LIKABLE_MODELS[name(obj)]
 
 
 def per_model_perm_check(user, obj):
@@ -47,7 +47,7 @@ def widget_context(user, obj):
     else:
         counts_text = config["count_text_plural"]
 
-    can_like = user.has_perm("phileo.can_like", obj)
+    can_like = user.has_perm("likes.can_like", obj)
 
     ctx = {
         "can_like": can_like,
@@ -70,7 +70,7 @@ def widget_context(user, obj):
             like_class = config["css_class_off"]
 
         ctx.update({
-            "like_url": reverse("phileo_like_toggle", kwargs={
+            "like_url": reverse("likes_like_toggle", kwargs={
                 "content_type_id": ct.id,
                 "object_id": obj.pk
             }),

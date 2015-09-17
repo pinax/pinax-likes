@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
 
-from phileo.utils import _allowed, per_model_perm_check
+from .utils import _allowed, per_model_perm_check
 
 
 class CanLikeBackend(ModelBackend):
@@ -11,7 +11,7 @@ class CanLikeBackend(ModelBackend):
         return _allowed(obj)
 
     def has_perm(self, user, perm, obj=None):
-        if perm == "phileo.can_like":
+        if perm == "likes.can_like":
             if not user.is_authenticated():
                 return False
             return (self.is_allowed(obj) and per_model_perm_check(user, obj))

@@ -1,7 +1,7 @@
 [run]
-source = phileo
-omit = phileo/tests/*,phileo/admin.py
+source = pinax
+omit = pinax/likes/tests/*,pinax/likes/admin.py
 branch = true
 
 [report]
-omit = phileo/tests/*,phileo/admin.py
+omit = pinax/likes/tests/*,pinax/likes/admin.py

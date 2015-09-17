@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from phileo.models import Like
+from .models import Like
 
 
 admin.site.register(

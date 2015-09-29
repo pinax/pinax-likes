@@ -17,7 +17,7 @@ setup(
     name="pinax-likes",
     long_description=read("README.rst"),
     version="1.3.1",
-    url="http://pinax-likes.rtfd.org/",
+    url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),
     install_requires=[

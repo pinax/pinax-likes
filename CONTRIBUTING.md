@@ -1,10 +1,9 @@
 # How to Contribute
 
-There are many ways you can help contribute to django-stripe-payments.
-
-Contributing code, writing documentation, reporting bugs, as well as
-reading and providing feedback on issues and pull requests, all are
-valid and necessary ways to help.
+There are many ways you can help contribute to this project. Contributing
+code, writing documentation, reporting bugs, as well as reading and providing
+feedback on issues and pull requests, all are valid and necessary ways to
+help.
 
 ## Committing Code
 
@@ -46,23 +45,16 @@ a message that will link the commit message to the issue and auto-close it
 if appropriate.
 
     Add ability to travel back in time
-    
+
     You need to be driving 88 miles per hour to generate 1.21 gigawatts of
     power to properly use this feature.
-    
+
     Fixes #88
 
 
 ## Coding style
 
-For the impatient, just run:
-
-    $ ./lint.sh
-
-And if there is any output warning you of different style violations, fix them up
-before committing.
-
-When writing code to be included in django-stripe-payments keep our style in mind:
+When writing code to be included in django-user-accounts keep our style in mind:
 
 * Follow [PEP8](http://www.python.org/dev/peps/pep-0008/) there are some
   cases where we do not follow PEP8. It is an excellent starting point.
@@ -78,6 +70,7 @@ Django's coding style:
 * Use double quotes not single quotes. Single quotes are allowed in cases
   where a double quote is needed in the string. This makes the code read
   cleaner in those cases.
+* Blank lines should contain no whitespace.
 * Docstrings always use three double quotes on a line of their own, so, for
   example, a single line docstring should take up three lines not one.
 * Imports are grouped specifically and ordered alphabetically. This is shown
@@ -92,51 +85,51 @@ Here is an example of these rules applied:
     # first set of imports are stdlib imports
     # non-from imports go first then from style import in their own group
     import csv
-    
+
     # second set of imports are Django imports with contrib in their own
     # group.
     from django.core.urlresolvers import reverse
     from django.db import models
     from django.utils import timezone
     from django.utils.translation import ugettext_lazy as _
-    
+
     from django.contrib.auth.models import User
-    
+
     # third set of imports are external apps (if applicable)
     from tagging.fields import TagField
-    
+
     # fourth set of imports are local apps
     from .fields import MarkupField
-    
-    
+
+
     class Task(models.Model):
         """
         A model for storing a task.
         """
-    
+
         creator = models.ForeignKey(User)
         created = models.DateTimeField(default=timezone.now)
         modified = models.DateTimeField(default=timezone.now)
-    
+
         objects = models.Manager()
-    
+
         class Meta:
             verbose_name = _("task")
             verbose_name_plural = _("tasks")
-    
+
         def __unicode__(self):
             return self.summary
-    
+
         def save(self, **kwargs):
             self.modified = datetime.now()
             super(Task, self).save(**kwargs)
-    
+
         def get_absolute_url(self):
             return reverse("task_detail", kwargs={"task_id": self.pk})
-    
+
         # custom methods
-    
-    
+
+
     class TaskComment(models.Model):
         # ... you get the point ...
         pass

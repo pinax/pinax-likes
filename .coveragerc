@@ -1,7 +1,7 @@
 [run]
 source = pinax
 omit = pinax/likes/tests/*,pinax/likes/admin.py
-branch = true
+branch = 1
 
 [report]
 omit = pinax/likes/tests/*,pinax/likes/admin.py

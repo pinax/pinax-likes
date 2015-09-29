@@ -78,7 +78,7 @@ Backward Incompatibilities
 - Each like button gets a unique ID, so multiple like buttons can appear on a single
   page
 - The like form works without JavaScript.
-- Likeable models need to be added to `PINAX_LIKES_LIKABLE_MODELS` setting. This prevents users
+- Likable models need to be added to `PINAX_LIKES_LIKABLE_MODELS` setting. This prevents users
   from liking anything and everything, which could potentially lead to security problems
   (eg. liking entries in permission tables, and thus seeing their content; liking
   administrative users and thus getting their username).

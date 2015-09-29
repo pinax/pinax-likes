@@ -31,7 +31,7 @@ Installation
         "likes",
     )
 
-* Add the models that you want to be likeable to ``PINAX_LIKES_LIKABLE_MODELS``::
+* Add the models that you want to be likable to ``PINAX_LIKES_LIKABLE_MODELS``::
 
     PINAX_LIKES_LIKABLE_MODELS = {
         "app.Model": {}  # can override default config settings for each model here

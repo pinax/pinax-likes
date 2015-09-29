@@ -43,7 +43,7 @@ DEFAULT_SETTINGS = dict(
     },
     AUTHENTICATION_BACKENDS=[
         "pinax.likes.auth_backends.CanLikeBackend"
-    ]
+    ],
 )
 
 

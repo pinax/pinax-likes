@@ -16,9 +16,11 @@ class PinaxLikesAppConf(AppConf):
     }
 
     LIKABLE_MODELS = getattr(settings, "PINAX_LIKES_LIKABLE_MODELS", defaultdict(dict))
-
     for model in LIKABLE_MODELS:
         custom_data = LIKABLE_MODELS[model].copy()
         default_data = DEFAULT_LIKE_CONFIG.copy()
         LIKABLE_MODELS[model] = default_data
         LIKABLE_MODELS[model].update(custom_data)
+
+    class Meta:
+        prefix = "pinax_likes"

@@ -22,7 +22,7 @@ In the templates
 Let's say you have a detail page for a blog post. First you will want
 to load the tags::
 
-    {% load likes_tags %}
+    {% load pinax_likes_tags %}
 
 
 In the body where you want the liking widget to go, add::

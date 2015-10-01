@@ -8,30 +8,25 @@ from django.conf import settings
 
 
 DEFAULT_SETTINGS = dict(
-    DEBUG=True,
-    USE_TZ=True,
-    TIME_ZONE="UTC",
-    DATABASES={
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-        }
-    },
-    MIDDLEWARE_CLASSES=[
-        "django.contrib.sessions.middleware.SessionMiddleware",
-        "django.contrib.auth.middleware.AuthenticationMiddleware",
-        "django.contrib.messages.middleware.MessageMiddleware"
-    ],
-    ROOT_URLCONF="phileo.urls",
     INSTALLED_APPS=[
         "django.contrib.auth",
         "django.contrib.contenttypes",
         "django.contrib.sessions",
         "django.contrib.sites",
-        "phileo",
-        "phileo.tests"
+        "pinax.likes",
+        "pinax.likes.tests"
     ],
+    MIDDLEWARE_CLASSES=[],
+    DATABASES={
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        }
+    },
     SITE_ID=1,
-    PHILEO_LIKABLE_MODELS={
+    ROOT_URLCONF="pinax.likes.tests.urls",
+    SECRET_KEY="notasecret",
+    PINAX_LIKES_LIKABLE_MODELS={
         "auth.User": {
             "like_text_on": "unlike",
             "css_class_on": "fa-heart",
@@ -47,8 +42,8 @@ DEFAULT_SETTINGS = dict(
         }
     },
     AUTHENTICATION_BACKENDS=[
-        "phileo.auth_backends.CanLikeBackend"
-    ]
+        "pinax.likes.auth_backends.CanLikeBackend"
+    ],
 )
 
 
@@ -56,9 +51,7 @@ def runtests(*test_args):
     if not settings.configured:
         settings.configure(**DEFAULT_SETTINGS)
 
-    # Compatibility with Django 1.7's stricter initialization
-    if hasattr(django, "setup"):
-        django.setup()
+    django.setup()
 
     parent = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, parent)
@@ -66,7 +59,7 @@ def runtests(*test_args):
     try:
         from django.test.runner import DiscoverRunner
         runner_class = DiscoverRunner
-        test_args = ["phileo.tests"]
+        test_args = ["pinax.likes.tests"]
     except ImportError:
         from django.test.simple import DjangoTestSuiteRunner
         runner_class = DjangoTestSuiteRunner

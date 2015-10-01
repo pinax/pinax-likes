@@ -3,9 +3,10 @@ from django import template
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
 
-from phileo.models import Like
-from phileo.utils import _allowed, widget_context
-from phileo.settings import LIKABLE_MODELS
+from ..models import Like
+from ..utils import _allowed, widget_context
+from ..conf import settings
+
 
 register = template.Library()
 
@@ -21,7 +22,7 @@ def who_likes(obj):
 @register.assignment_tag
 def likes(user, *models):
     content_types = []
-    model_list = models or LIKABLE_MODELS.keys()
+    model_list = models or settings.PINAX_LIKES_LIKABLE_MODELS.keys()
     for model in model_list:
         if not _allowed(model):
             continue
@@ -51,9 +52,9 @@ class LikeRenderer(template.Node):
         }
 
         return render_to_string([
-            'phileo/{0}/{1}.html'.format(app_name, model_name),
-            'phileo/{0}/like.html'.format(app_name),
-            'phileo/_like.html',
+            'pinax/likes/{0}/{1}.html'.format(app_name, model_name),
+            'pinax/likes/{0}/like.html'.format(app_name),
+            'pinax/likes/_like.html',
         ], like_context, context)
 
 
@@ -91,13 +92,13 @@ def likes_count(obj):
     ).count()
 
 
-@register.inclusion_tag("phileo/_widget.html")
-def phileo_widget(user, obj):
+@register.inclusion_tag("pinax/likes/_widget.html")
+def likes_widget(user, obj):
     return widget_context(user, obj)
 
 
-@register.inclusion_tag("phileo/_widget_brief.html")
-def phileo_widget_brief(user, obj):
+@register.inclusion_tag("pinax/likes/_widget_brief.html")
+def likes_widget_brief(user, obj):
     return widget_context(user, obj)
 
 

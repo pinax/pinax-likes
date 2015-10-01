@@ -1,5 +1,5 @@
 ======
-phileo
+likes
 ======
 
 A liking app
@@ -7,7 +7,7 @@ A liking app
 Development
 -----------
 
-The source repository can be found at https://github.com/pinax/phileo
+The source repository can be found at https://github.com/pinax/likes
 
 
 Contents

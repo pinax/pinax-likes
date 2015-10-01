@@ -20,36 +20,36 @@ perform a redirect.
 Installation
 ============
 
-* To install phileo::
+* To install likes::
 
-    pip install phileo
+    pip install likes
 
-* Add ``'phileo'`` to your ``INSTALLED_APPS`` setting::
+* Add ``'likes'`` to your ``INSTALLED_APPS`` setting::
 
     INSTALLED_APPS = (
         # other apps
-        "phileo",
+        "likes",
     )
 
-* Add the models that you want to be likeable to ``PHILEO_LIKABLE_MODELS``::
+* Add the models that you want to be likable to ``PINAX_LIKES_LIKABLE_MODELS``::
 
-    PHILEO_LIKABLE_MODELS = {
+    PINAX_LIKES_LIKABLE_MODELS = {
         "app.Model": {}  # can override default config settings for each model here
     }
 
-* Add ``'phileo.auth_backends.CanLikeBackend'`` to your ``AUTHENTICATION_BACKENDS``
-  (or use your own custom version checking against the ``phileo.can_like`` permission)::
+* Add ``'likes.auth_backends.CanLikeBackend'`` to your ``AUTHENTICATION_BACKENDS``
+  (or use your own custom version checking against the ``likes.can_like`` permission)::
 
     AUTHENTICATION_BACKENDS = [
       ...
-      "phileo.auth_backends.CanLikeBackend",
+      "likes.auth_backends.CanLikeBackend",
       ...
     ]
 
-* Lastly you will want to add `phileo.urls` to your urls definition::
+* Lastly you will want to add `likes.urls` to your urls definition::
 
     ...
-    url(r"^likes/", include("phileo.urls")),
+    url(r"^likes/", include("likes.urls")),
     ...
 
 .. _eldarion-ajax: https://github.com/eldarion/eldarion-ajax

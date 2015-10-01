@@ -45,29 +45,29 @@ render. Any of them can be overwritten as needed, allowing you to
 customize the rendering of the like on a per model and per application
 basis:
 
-* phileo/app_name/model.html
-* phileo/app_name/like.html
-* phileo/_like.html
+* likes/app_name/model.html
+* likes/app_name/like.html
+* likes/_like.html
 
 
-phileo_widget
+likes_widget
 -------------
 
 This renders a fragment of html that will be what the user will click
 on to unlike or like objects. It only has two required parameters, which
 are the user and the object.::
 
-    {% phileo_widget user object %}
+    {% likes_widget user object %}
 
 
-It renders "phileo/_widget.html" and can be overridden as desired.
+It renders "likes/_widget.html" and can be overridden as desired.
 
 
-phileo_widget_brief
+likes_widget_brief
 -------------------
 
-Same, functionally, as `phileo_widget`, except that it renders
-"phileo/_widget_brief.html" instead.
+Same, functionally, as `likes_widget`, except that it renders
+"likes/_widget_brief.html" instead.
 
 
 liked

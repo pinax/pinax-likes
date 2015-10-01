@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 
 from ..models import Like
-from ..templatetags.phileo_tags import (
+from ..templatetags.pinax_likes_tags import (
     ObjectDecorator,
     who_likes as who_likes_tag,
     likes as likes_tag,

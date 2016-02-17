@@ -9,3 +9,6 @@ MANIFEST
 .eggs
 docs/_build/
 htmlcov/
+
+# Pycharm
+.idea

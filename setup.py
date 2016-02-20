@@ -22,7 +22,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         "django-appconf>=0.6",
-        "django-braces",
     ],
     package_data={
         "pinax.likes": [

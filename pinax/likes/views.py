@@ -1,9 +1,11 @@
 from braces.views import JSONResponseMixin, AjaxResponseMixin, LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from pinax.likes.models import Like
@@ -11,6 +13,7 @@ from pinax.likes.signals import object_liked, object_unliked
 from pinax.likes.utils import widget_context
 
 
+@method_decorator(login_required, name='dispatch')
 class LikeToogleView(LoginRequiredMixin, AjaxResponseMixin, JSONResponseMixin, View):
     def post_ajax(self, request, *args, **kwargs):
         content_type = get_object_or_404(ContentType, pk=self.kwargs.get('content_type_id'))

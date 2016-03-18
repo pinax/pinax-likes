@@ -6,7 +6,7 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.contenttypes.models import ContentType
 
 from ..models import Like
-from ..views import like_toggle
+from ..views import LikeToogleView
 
 
 class LikeToggleTestCase(TestCase):
@@ -31,7 +31,7 @@ class LikeToggleTestCase(TestCase):
         brian = User.objects.get(username="brian")
         request = self.factory.post("/like/{0}:{1}/".format(self.user_content_type.pk, brian.pk))
         request.user = self.user
-        response = like_toggle(request, self.user_content_type.pk, brian.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, brian.pk)
         self.assertEquals(response.status_code, 302)
         self.assertTrue(self.like_qs.filter(receiver_object_id=brian.pk).exists())
 
@@ -39,7 +39,7 @@ class LikeToggleTestCase(TestCase):
         brian = User.objects.get(username="brian")
         request = self.factory.post("/like/{0}:{1}/".format(self.user_content_type.pk, brian.pk))
         request.user = AnonymousUser()
-        response = like_toggle(request, self.user_content_type.pk, brian.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, brian.pk)
         self.assertEquals(response.status_code, 302)
         self.assertEquals(response.url, "/accounts/login/?next=/like/3%3A3/")
         self.assertFalse(self.like_qs.filter(receiver_object_id=brian.pk).exists())
@@ -48,7 +48,7 @@ class LikeToggleTestCase(TestCase):
         james = User.objects.get(username="james")
         request = self.factory.post("/like/{0}:{1}/".format(self.user_content_type.pk, james.pk))
         request.user = self.user
-        response = like_toggle(request, self.user_content_type.pk, james.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, james.pk)
         self.assertEquals(response.status_code, 302)
         self.assertFalse(self.like_qs.filter(receiver_object_id=james.pk).exists())
 
@@ -59,7 +59,7 @@ class LikeToggleTestCase(TestCase):
             HTTP_X_REQUESTED_WITH="XMLHttpRequest"
         )
         request.user = self.user
-        response = like_toggle(request, self.user_content_type.pk, james.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, james.pk)
         self.assertEquals(response.status_code, 200)
         self.assertFalse(self.like_qs.filter(receiver_object_id=james.pk).exists())
         data = json.loads(response.content.decode())
@@ -74,7 +74,7 @@ class LikeToggleTestCase(TestCase):
             HTTP_X_REQUESTED_WITH="XMLHttpRequest"
         )
         request.user = self.user
-        response = like_toggle(request, self.user_content_type.pk, michael.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, michael.pk)
         self.assertEquals(response.status_code, 200)
         self.assertTrue(self.like_qs.filter(receiver_object_id=michael.pk).exists())
         data = json.loads(response.content.decode())
@@ -89,9 +89,9 @@ class LikeToggleTestCase(TestCase):
             HTTP_X_REQUESTED_WITH="XMLHttpRequest"
         )
         request.user = self.user
-        response = like_toggle(request, self.user_content_type.pk, michael.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, michael.pk)
         request.user = User.objects.get(username="tom")
-        response = like_toggle(request, self.user_content_type.pk, michael.pk)
+        response = LikeToogleView.as_view()(request, self.user_content_type.pk, michael.pk)
         self.assertEquals(response.status_code, 200)
         self.assertTrue(self.like_qs.filter(receiver_object_id=michael.pk).exists())
         data = json.loads(response.content.decode())

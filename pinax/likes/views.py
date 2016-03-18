@@ -46,5 +46,3 @@ class LikeToogleView(LoginRequiredMixin, View):
             }
             return JsonResponse(data)
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
-
-

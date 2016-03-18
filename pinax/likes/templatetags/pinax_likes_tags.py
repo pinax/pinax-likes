@@ -1,4 +1,5 @@
 from django import template
+from django.template import loader
 
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
@@ -11,16 +12,26 @@ from ..conf import settings
 register = template.Library()
 
 
-@register.assignment_tag
+@register.simple_tag
 def who_likes(obj):
+    """
+    Usage:
+        {% who_likes obj as var %}
+    """
     return Like.objects.filter(
         receiver_content_type=ContentType.objects.get_for_model(obj),
         receiver_object_id=obj.pk
     )
 
 
-@register.assignment_tag
+@register.simple_tag
 def likes(user, *models):
+    """
+    Usage:
+        {% likes user as var %}
+    Or
+        {% likes user [model1, model2] as var %}
+    """
     content_types = []
     model_list = models or settings.PINAX_LIKES_LIKABLE_MODELS.keys()
     for model in model_list:
@@ -31,6 +42,36 @@ def likes(user, *models):
             ContentType.objects.get(app_label=app, model__iexact=model)
         )
     return Like.objects.filter(sender=user, receiver_content_type__in=content_types)
+
+
+@register.simple_tag
+@register.filter
+def likes_count(obj):
+    """
+    Usage:
+
+        {% comment_count obj %}
+    or
+        {% comment_count obj as var %}
+    or
+        {{ obj|likes_count }}
+    """
+    return Like.objects.filter(
+        receiver_content_type=ContentType.objects.get_for_model(obj),
+        receiver_object_id=obj.pk
+    ).count()
+
+
+@register.simple_tag
+def likes_widget(user, obj, template_name="pinax/likes/_widget.html"):
+    """
+    Usage:
+
+        {% likes_widget request.user post %}
+    or
+        {% likes_widget request.user post "pinax/likes/_widget_brief.html" %}
+    """
+    return loader.get_template(template_name).render(widget_context(user, obj))
 
 
 class LikeRenderer(template.Node):
@@ -73,33 +114,6 @@ def render_like(parser, token):
     var = tokens[1]
 
     return LikeRenderer(var)
-
-
-@register.filter
-def likes_count(obj):
-    """
-    Something like:
-
-        <div class="likes_count">{{ obj|likes_count }}</div>
-
-    will render:
-
-        <div class="likes_count">34</div>
-    """
-    return Like.objects.filter(
-        receiver_content_type=ContentType.objects.get_for_model(obj),
-        receiver_object_id=obj.pk
-    ).count()
-
-
-@register.inclusion_tag("pinax/likes/_widget.html")
-def likes_widget(user, obj):
-    return widget_context(user, obj)
-
-
-@register.inclusion_tag("pinax/likes/_widget_brief.html")
-def likes_widget_brief(user, obj):
-    return widget_context(user, obj)
 
 
 class ObjectDecorator(object):

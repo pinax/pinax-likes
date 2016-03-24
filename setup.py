@@ -21,7 +21,8 @@ setup(
     license="MIT",
     packages=find_packages(),
     install_requires=[
-        "django-appconf>=0.6",
+        "django-appconf>=1.0.1",
+        "django-user-accounts>=1.3.1"
     ],
     package_data={
         "pinax.likes": [
@@ -30,6 +31,7 @@ setup(
     },
     test_suite="runtests.runtests",
     tests_require=[
+        "mock>=1.3.0",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

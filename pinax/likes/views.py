@@ -1,7 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseForbidden, JsonResponse, HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import (
+    Http404,
+    HttpResponseForbidden,
+    HttpResponseRedirect,
+    JsonResponse,
+)
 from django.shortcuts import get_object_or_404
-from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.views.generic import View
 
@@ -9,16 +14,17 @@ from pinax.likes.models import Like
 from pinax.likes.signals import object_liked, object_unliked
 from pinax.likes.utils import widget_context
 
-try:
-    from account.mixins import LoginRequiredMixin
-except ImportError:
-    from django.contrib.auth.mixins import LoginRequiredMixin
+from account.mixins import LoginRequiredMixin
 
 
-class LikeToogleView(LoginRequiredMixin, View):
+class LikeToggleView(LoginRequiredMixin, View):
+
     def post(self, request, *args, **kwargs):
-        content_type = get_object_or_404(ContentType, pk=self.kwargs.get('content_type_id'))
-        obj = content_type.get_object_for_this_type(pk=self.kwargs.get('object_id'))
+        content_type = get_object_or_404(ContentType, pk=self.kwargs.get("content_type_id"))
+        try:
+            obj = content_type.get_object_for_this_type(pk=self.kwargs.get("object_id"))
+        except ObjectDoesNotExist:
+            raise Http404("Object not found.")
 
         if not request.user.has_perm("likes.can_like", obj):
             return HttpResponseForbidden()
@@ -38,8 +44,8 @@ class LikeToogleView(LoginRequiredMixin, View):
             data = {
                 "html": render_to_string(
                     template,
-                    html_ctx,
-                    context_instance=RequestContext(request)
+                    context=html_ctx,
+                    request=request
                 ),
                 "likes_count": html_ctx["like_count"],
                 "liked": html_ctx["liked"],

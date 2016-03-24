@@ -9,6 +9,6 @@ MANIFEST
 .eggs
 docs/_build/
 htmlcov/
-
+.python-version
 # Pycharm
 .idea

@@ -71,7 +71,7 @@ def widget_context(user, obj):
             like_class = config["css_class_off"]
 
         ctx.update({
-            "like_url": reverse("likes_like_toggle", kwargs={
+            "like_url": reverse("pinax_likes:like_toggle", kwargs={
                 "content_type_id": ct.id,
                 "object_id": obj.pk
             }),

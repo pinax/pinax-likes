@@ -16,7 +16,7 @@ setup(
     description="a liking app for Django",
     name="pinax-likes",
     long_description=read("README.rst"),
-    version="1.3.1",
+    version="1.3.2",
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),

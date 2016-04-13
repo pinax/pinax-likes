@@ -11,6 +11,10 @@ do is include the eldarion-ajax in your base template somewhere like::
     {% load staticfiles %}
     <script src="{% static "js/eldarion-ajax.min.js" %}"></script>
 
+and include `eldarion-ajax` somewhere in your site Javascript::
+
+    require('eldarion-ajax');
+    
 This of course is optional. You can roll your own javascript handling
 as the view also returns data in addition to rendered HTML. Furthermore,
 if you don't want ajax at all the view will handle a regular POST and

@@ -48,7 +48,7 @@ Running the Tests
 Documentation
 -------------
 
-The ``pinax-likes`` documentation is available here https://github.com/pinax/pinax-likes/tree/fix-docs/docs.
+The ``pinax-likes`` documentation is available here https://github.com/pinax/pinax-likes/tree/master/docs.
 
 
 Contribute

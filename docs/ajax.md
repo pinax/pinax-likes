@@ -9,7 +9,7 @@ template.
 If you don't have this already (or something similar), considering
 creating a `ajax.js` file with the following contents:
 
-    ```
+    
     $(document).ajaxSend(function(event, xhr, settings) {
         function getCookie(name) {
             var cookieValue = null;
@@ -46,10 +46,10 @@ creating a `ajax.js` file with the following contents:
             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         }
     });
-    ```
+    
 
 And including it:
 
-    ```
+    
     <script src="{% static "js/ajax.js" %}"></script>
-    ```
+    

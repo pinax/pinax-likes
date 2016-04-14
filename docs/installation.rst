@@ -14,7 +14,7 @@ do is include the eldarion-ajax in your base template somewhere like::
 and include `eldarion-ajax` somewhere in your site Javascript::
 
     require('eldarion-ajax');
-    
+
 This of course is optional. You can roll your own javascript handling
 as the view also returns data in addition to rendered HTML. Furthermore,
 if you don't want ajax at all the view will handle a regular POST and
@@ -26,13 +26,13 @@ Installation
 
 * To install likes::
 
-    pip install likes
+    pip install pinax-likes
 
-* Add ``'likes'`` to your ``INSTALLED_APPS`` setting::
+* Add ``'pinax.likes'`` to your ``INSTALLED_APPS`` setting::
 
     INSTALLED_APPS = (
         # other apps
-        "likes",
+        "pinax.likes",
     )
 
 * Add the models that you want to be likable to ``PINAX_LIKES_LIKABLE_MODELS``::
@@ -46,14 +46,14 @@ Installation
 
     AUTHENTICATION_BACKENDS = [
       ...
-      "likes.auth_backends.CanLikeBackend",
+      "pinax.likes.auth_backends.CanLikeBackend",
       ...
     ]
 
 * Lastly you will want to add `likes.urls` to your urls definition::
 
     ...
-    url(r"^likes/", include("likes.urls")),
+    url(r"^likes/", include("pinax.likes.urls", namespace="pinax_likes")),
     ...
 
 .. _eldarion-ajax: https://github.com/eldarion/eldarion-ajax

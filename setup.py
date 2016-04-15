@@ -22,7 +22,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         "django-appconf>=1.0.1",
-        "django-user-accounts>=1.3.1"
     ],
     package_data={
         "pinax.likes": [

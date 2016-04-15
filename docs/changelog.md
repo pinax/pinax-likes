@@ -10,6 +10,7 @@
 - Added URL namespace."pinax_likes"
 - Added tests.
 - Dropped support for Django 1.7
+- Added `compat.py` in order to remove django-user-accounts dependency.
 
 ## 1.2
 

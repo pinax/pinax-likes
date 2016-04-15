@@ -41,6 +41,7 @@ DEFAULT_SETTINGS = dict(
             "css_class_off": "fa-heart-o"
         }
     },
+    LOGIN_URL="/dummy_login/",
     AUTHENTICATION_BACKENDS=[
         "pinax.likes.auth_backends.CanLikeBackend"
     ],

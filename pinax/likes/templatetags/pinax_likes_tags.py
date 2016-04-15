@@ -50,9 +50,9 @@ def likes_count(obj):
     """
     Usage:
 
-        {% comment_count obj %}
+        {% likes_count obj %}
     or
-        {% comment_count obj as var %}
+        {% likes_count obj as var %}
     or
         {{ obj|likes_count }}
     """

@@ -1,6 +1,7 @@
 import json
 import mock
 
+from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
@@ -35,6 +36,15 @@ class LikeToggleTestCase(TestCase):
             sender=self.user,
             receiver_content_type=self.user_content_type
 
+        )
+
+        self.login_redirect = settings.LOGIN_URL
+
+    def assertRedirectsToLogin(self, response, next):
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.url,
+            "{}?next={}".format(self.login_redirect, next)
         )
 
     def test_like_brian(self):
@@ -86,10 +96,7 @@ class LikeToggleTestCase(TestCase):
             content_type_id=self.user_content_type.pk,
             object_id=brian.pk
         )
-        self.assertEqual(response.status_code, 302)
-        encoded_url = urlquote(url)
-        # Response (redirect) URL path comes from pinax/likes/tests/urls.py
-        self.assertEqual(response.url, "/dummy_login/?next={}".format(encoded_url))
+        self.assertRedirectsToLogin(response, urlquote(url))
         self.assertFalse(self.like_qs.filter(receiver_object_id=brian.pk).exists())
 
     def test_unlike_james(self):

@@ -16,13 +16,12 @@ setup(
     description="a liking app for Django",
     name="pinax-likes",
     long_description=read("README.rst"),
-    version="2.0.0",
+    version="2.0.1",
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),
     install_requires=[
         "django-appconf>=1.0.1",
-        "django-user-accounts>=1.3.1"
     ],
     package_data={
         "pinax.likes": [

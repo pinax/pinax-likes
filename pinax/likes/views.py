@@ -14,7 +14,7 @@ from pinax.likes.models import Like
 from pinax.likes.signals import object_liked, object_unliked
 from pinax.likes.utils import widget_context
 
-from account.mixins import LoginRequiredMixin
+from .compat import LoginRequiredMixin
 
 
 class LikeToggleView(LoginRequiredMixin, View):

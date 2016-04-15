@@ -41,10 +41,10 @@ class LikeToggleTestCase(TestCase):
         self.login_redirect = settings.LOGIN_URL
 
     def assertRedirectsToLogin(self, response, next):
-        self.assertRedirects(
-            response,
-            "{}?next={}".format(self.login_redirect, next),
-            fetch_redirect_response=False
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            response.url,
+            "{}?next={}".format(self.login_redirect, next)
         )
 
     def test_like_brian(self):

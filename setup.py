@@ -20,14 +20,14 @@ setup(
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),
-    install_requires=[
-        "django-appconf>=1.0.1",
-    ],
     package_data={
         "pinax.likes": [
             "templates/pinax/likes/*",
         ]
     },
+    install_requires=[
+        "django-appconf>=1.0.1",
+    ],
     test_suite="runtests.runtests",
     tests_require=[
         "mock>=1.3.0",

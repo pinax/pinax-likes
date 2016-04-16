@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 2.0.2
+
+- Improve documentation
+
 ## 2.0.1
 
 - Converted documentation to Markdown format

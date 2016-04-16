@@ -15,19 +15,19 @@ setup(
     author_email="team@pinaxproject.com",
     description="a liking app for Django",
     name="pinax-likes",
-    long_description=read("README.rst"),
-    version="2.0.1",
+    long_description=read("README.md"),
+    version="2.0.2",
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),
-    install_requires=[
-        "django-appconf>=1.0.1",
-    ],
     package_data={
         "pinax.likes": [
             "templates/pinax/likes/*",
         ]
     },
+    install_requires=[
+        "django-appconf>=1.0.1",
+    ],
     test_suite="runtests.runtests",
     tests_require=[
         "mock>=1.3.0",

@@ -13,6 +13,8 @@ DEFAULT_SETTINGS = dict(
         "django.contrib.contenttypes",
         "django.contrib.sessions",
         "django.contrib.sites",
+        "pinax_theme_bootstrap",
+        "bootstrapform",
         "pinax.likes",
         "pinax.likes.tests"
     ],
@@ -53,6 +55,7 @@ DEFAULT_SETTINGS = dict(
                 "debug": True,
                 "context_processors": [
                     "django.contrib.auth.context_processors.auth",
+                    "pinax_theme_bootstrap.context_processors.theme",
                 ]
             }
         },

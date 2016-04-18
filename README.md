@@ -24,7 +24,7 @@ liked an object, what objects a user liked, and more.
 
 ## Getting Started and Documentation
 
-Follow steps outlined in [Pinax Likes Documentation](docs/index.md).
+Follow steps outlined in [Pinax Likes Documentation](https://github.com/pinax/pinax-likes/blob/master/docs/index.md).
 
 ## Contribute
 

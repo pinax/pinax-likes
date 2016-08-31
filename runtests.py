@@ -30,17 +30,17 @@ DEFAULT_SETTINGS = dict(
     SECRET_KEY="notasecret",
     PINAX_LIKES_LIKABLE_MODELS={
         "auth.User": {
-            "like_text_on": "unlike",
+            "like_text_on": "unlike me",
             "css_class_on": "fa-heart",
-            "like_text_off": "like",
+            "like_text_off": "like me",
             "css_class_off": "fa-heart-o",
             "allowed": lambda user, obj: True
         },
         "tests.Demo": {
             "like_text_on": "unlike",
-            "css_class_on": "fa-heart",
+            "css_class_on": "fa-rocketship",
             "like_text_off": "like",
-            "css_class_off": "fa-heart-o"
+            "css_class_off": "fa-rocketship-o"
         }
     },
     LOGIN_URL="/dummy_login/",

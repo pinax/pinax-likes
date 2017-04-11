@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 2.1.0
+
+- adds context and request to the `likes_widget` template tag
+
 ## 2.0.4
 
 - Improve documentation

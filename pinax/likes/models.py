@@ -10,9 +10,10 @@ from django.contrib.contenttypes.models import ContentType
 @python_2_unicode_compatible
 class Like(models.Model):
 
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="liking")
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name="liking", on_delete=models.CASCADE)
 
-    receiver_content_type = models.ForeignKey(ContentType)
+    receiver_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     receiver_object_id = models.PositiveIntegerField()
     receiver = GenericForeignKey(
         ct_field="receiver_content_type",

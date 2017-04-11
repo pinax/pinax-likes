@@ -37,7 +37,7 @@ class LikeToggleView(LoginRequiredMixin, View):
             object_unliked.send(sender=Like, object=obj, request=request)
 
         if request.is_ajax():
-            html_ctx = widget_context(request.user, obj)
+            html_ctx = widget_context(request.user, obj, request)
             template = "pinax/likes/_widget.html"
             if request.GET.get("t") == "b":
                 template = "pinax/likes/_widget_brief.html"

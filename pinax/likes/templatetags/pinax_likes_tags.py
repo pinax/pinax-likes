@@ -62,8 +62,8 @@ def likes_count(obj):
     ).count()
 
 
-@register.simple_tag
-def likes_widget(user, obj, template_name="pinax/likes/_widget.html"):
+@register.simple_tag(takes_context=True)
+def likes_widget(context, user, obj, template_name="pinax/likes/_widget.html"):
     """
     Usage:
 
@@ -71,7 +71,9 @@ def likes_widget(user, obj, template_name="pinax/likes/_widget.html"):
     or
         {% likes_widget request.user post "pinax/likes/_widget_brief.html" %}
     """
-    return loader.get_template(template_name).render(widget_context(user, obj))
+    request = context["request"]
+    return loader.get_template(template_name).render(
+        widget_context(user, obj, request))
 
 
 class LikeRenderer(template.Node):

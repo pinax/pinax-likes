@@ -35,7 +35,7 @@ def per_model_perm_check(user, obj):
         return True
 
 
-def widget_context(user, obj):
+def widget_context(user, obj, request):
     ct = ContentType.objects.get_for_model(obj)
     config = get_config(obj)
     like_count = Like.objects.filter(
@@ -54,6 +54,7 @@ def widget_context(user, obj):
         "like_count": like_count,
         "counts_text": counts_text,
         "object": obj,
+        "request": request
     }
 
     if can_like:

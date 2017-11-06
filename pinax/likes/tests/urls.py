@@ -3,7 +3,8 @@ from django.http import HttpResponse
 
 
 def dummy_view():
-    return HttpResponse(content=b'', status=200)
+    return HttpResponse(content=b"", status=200)
+
 
 urlpatterns = [
     url(r"^", include("pinax.likes.urls", namespace="pinax_likes")),

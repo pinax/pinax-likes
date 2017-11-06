@@ -1,7 +1,8 @@
+from collections import defaultdict
+
 from django.conf import settings  # noqa
 
 from appconf import AppConf
-from collections import defaultdict
 
 
 class PinaxLikesAppConf(AppConf):

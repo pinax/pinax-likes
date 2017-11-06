@@ -1,5 +1,4 @@
 import json
-import mock
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, User
@@ -8,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test import RequestFactory, TestCase
 from django.utils.http import urlquote
+
+import mock
 
 from ..models import Like
 from ..views import LikeToggleView
@@ -64,7 +65,7 @@ class LikeToggleTestCase(TestCase):
 
         self.assertFalse(self.like_qs.filter(receiver_object_id=brian.pk).exists())
 
-        with mock.patch('pinax.likes.signals.object_liked.send', autospec=True) as mocked_handler:
+        with mock.patch("pinax.likes.signals.object_liked.send", autospec=True) as mocked_handler:
             response = LikeToggleView.as_view()(
                 request,
                 content_type_id=self.user_content_type.pk,
@@ -115,7 +116,7 @@ class LikeToggleTestCase(TestCase):
         request.user = self.user
 
         self.assertTrue(self.like_qs.filter(receiver_object_id=james.pk).exists())
-        with mock.patch('pinax.likes.signals.object_unliked.send', autospec=True) as mocked_handler:
+        with mock.patch("pinax.likes.signals.object_unliked.send", autospec=True) as mocked_handler:
             response = LikeToggleView.as_view()(
                 request,
                 content_type_id=self.user_content_type.pk,
@@ -141,7 +142,7 @@ class LikeToggleTestCase(TestCase):
         )
         request = self.factory.post(url, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
         request.user = self.user
-        with mock.patch('pinax.likes.signals.object_liked.send', autospec=True) as mocked_handler:
+        with mock.patch("pinax.likes.signals.object_liked.send", autospec=True) as mocked_handler:
             response = LikeToggleView.as_view()(
                 request,
                 content_type_id=self.user_content_type.pk,
@@ -205,7 +206,7 @@ class LikeToggleTestCase(TestCase):
         )
         request = self.factory.post(url, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
         request.user = self.user
-        with mock.patch('pinax.likes.signals.object_unliked.send', autospec=True) as mocked_handler:
+        with mock.patch("pinax.likes.signals.object_unliked.send", autospec=True) as mocked_handler:
             response = LikeToggleView.as_view()(
                 request,
                 content_type_id=self.user_content_type.pk,

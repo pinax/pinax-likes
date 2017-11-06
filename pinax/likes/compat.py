@@ -13,7 +13,7 @@ except ImportError:
         functionality.
         """
         login_url = None
-        permission_denied_message = ''
+        permission_denied_message = ""
         raise_exception = False
         redirect_field_name = REDIRECT_FIELD_NAME
 
@@ -24,8 +24,8 @@ except ImportError:
             login_url = self.login_url or settings.LOGIN_URL
             if not login_url:
                 raise ImproperlyConfigured(
-                    '{0} is missing the login_url attribute. Define {0}.login_url, settings.LOGIN_URL, or override '
-                    '{0}.get_login_url().'.format(self.__class__.__name__)
+                    "{0} is missing the login_url attribute. Define {0}.login_url, settings.LOGIN_URL, or override "
+                    "{0}.get_login_url().".format(self.__class__.__name__)
                 )
             return force_text(login_url)
 
@@ -84,8 +84,8 @@ except ImportError:
             """
             if self.permission_required is None:
                 raise ImproperlyConfigured(
-                    '{0} is missing the permission_required attribute. Define {0}.permission_required, or override '
-                    '{0}.get_permission_required().'.format(self.__class__.__name__)
+                    "{0} is missing the permission_required attribute. Define {0}.permission_required, or override "
+                    "{0}.get_permission_required().".format(self.__class__.__name__)
                 )
             if isinstance(self.permission_required, six.string_types):
                 perms = (self.permission_required, )
@@ -118,7 +118,7 @@ except ImportError:
 
         def test_func(self):
             raise NotImplementedError(
-                '{0} is missing the implementation of the test_func() method.'.format(self.__class__.__name__)
+                "{0} is missing the implementation of the test_func() method.".format(self.__class__.__name__)
             )
 
         def get_test_func(self):

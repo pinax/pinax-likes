@@ -1,10 +1,9 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import models
 
-from django.contrib.contenttypes.models import ContentType
-
-from .models import Like
 from .conf import settings
+from .models import Like
 
 
 def name(obj):

@@ -4,9 +4,9 @@ LONG_DESCRIPTION = """
 .. image:: http://pinaxproject.com/pinax-design/patches/pinax-likes.svg
     :target: https://pypi.python.org/pypi/pinax-likes/
 
-===============
-Pinax Referrals
-===============
+===========
+Pinax Likes
+===========
 
 .. image:: https://img.shields.io/pypi/v/pinax-likes.svg
     :target: https://pypi.python.org/pypi/pinax-likes/
@@ -46,7 +46,7 @@ setup(
     description="a liking app for Django",
     name="pinax-likes",
     long_description=LONG_DESCRIPTION,
-    version="2.2.0",
+    version="2.2.1",
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),

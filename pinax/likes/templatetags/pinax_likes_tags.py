@@ -1,13 +1,11 @@
 from django import template
-from django.template import loader
-
-from django.template.loader import render_to_string
 from django.contrib.contenttypes.models import ContentType
+from django.template import loader
+from django.template.loader import render_to_string
 
+from ..conf import settings
 from ..models import Like
 from ..utils import _allowed, widget_context
-from ..conf import settings
-
 
 register = template.Library()
 
@@ -90,14 +88,14 @@ class LikeRenderer(template.Node):
         model_name = content_type.model.lower()
 
         like_context = {
-            'instance': instance,
-            'like': like,
+            "instance": instance,
+            "like": like,
         }
 
         return render_to_string([
-            'pinax/likes/{0}/{1}.html'.format(app_name, model_name),
-            'pinax/likes/{0}/like.html'.format(app_name),
-            'pinax/likes/_like.html',
+            "pinax/likes/{0}/{1}.html".format(app_name, model_name),
+            "pinax/likes/{0}/like.html".format(app_name),
+            "pinax/likes/_like.html",
         ], like_context, context)
 
 

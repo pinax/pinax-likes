@@ -1,11 +1,9 @@
-from django.test import TestCase
-
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-
-from .models import Demo
+from django.test import TestCase
 
 from ..utils import _allowed, get_config, per_model_perm_check
+from .models import Demo
 
 
 class UtilsTestCase(TestCase):

@@ -3,9 +3,9 @@ import json
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test import RequestFactory, TestCase
+from django.urls import reverse
 from django.utils.http import urlquote
 
 import mock

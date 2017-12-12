@@ -17,7 +17,6 @@
 
 * [About Pinax](#about-pinax)
 * [Overview](#overview)
-  * [Features](#features)
   * [Supported Django and Python versions](#supported-django-and-python-versions)
 * [Documentation](#documentation)
   * [Installation](#installation)

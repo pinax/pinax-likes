@@ -51,7 +51,7 @@ setup(
     description="a liking app for Django",
     name="pinax-likes",
     long_description=LONG_DESCRIPTION,
-    version="2.2.1",
+    version="2.2.2",
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),

@@ -246,7 +246,7 @@ user likes each object in the iterable:
     
 ## ChangeLog
 
-## 2.2.2
+## 3.0.0
 
 * Drop Django 1.8 and 1.10 support
 * Improve documentation

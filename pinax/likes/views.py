@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import (
@@ -13,8 +14,6 @@ from django.views.generic import View
 from pinax.likes.models import Like
 from pinax.likes.signals import object_liked, object_unliked
 from pinax.likes.utils import widget_context
-
-from .compat import LoginRequiredMixin
 
 
 class LikeToggleView(LoginRequiredMixin, View):

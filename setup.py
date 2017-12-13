@@ -36,8 +36,13 @@ liked an object, what objects a user liked, and more.
 Supported Django and Python Versions
 ------------------------------------
 
-* Django 1.8, 1.10, 1.11, and 2.0
-* Python 2.7, 3.4, 3.5, and 3.6
++-----------------+-----+-----+-----+-----+
+| Django \ Python | 2.7 | 3.4 | 3.5 | 3.6 |
++=================+=====+=====+=====+=====+
+| 1.11            |  *  |  *  |  *  |  *  |
++-----------------+-----+-----+-----+-----+
+| 2.0             |     |  *  |  *  |  *  |
++-----------------+-----+-----+-----+-----+
 """
 
 setup(
@@ -46,7 +51,7 @@ setup(
     description="a liking app for Django",
     name="pinax-likes",
     long_description=LONG_DESCRIPTION,
-    version="2.2.1",
+    version="3.0.0",
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),
@@ -66,8 +71,6 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Django",
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.10',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         "Intended Audience :: Developers",

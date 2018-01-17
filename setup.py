@@ -1,5 +1,6 @@
 from setuptools import find_packages, setup
 
+VERSION = "3.0.1"
 LONG_DESCRIPTION = """
 .. image:: http://pinaxproject.com/pinax-design/patches/pinax-likes.svg
     :target: https://pypi.python.org/pypi/pinax-likes/
@@ -51,7 +52,7 @@ setup(
     description="a liking app for Django",
     name="pinax-likes",
     long_description=LONG_DESCRIPTION,
-    version="3.0.0",
+    version=VERSION,
     url="http://github.com/pinax/pinax-likes/",
     license="MIT",
     packages=find_packages(),
@@ -60,12 +61,13 @@ setup(
         ]
     },
     install_requires=[
+        "django>=1.11",
         "django-appconf>=1.0.1",
     ],
     test_suite="runtests.runtests",
     tests_require=[
-        "mock>=1.3.0",
-        "pinax-theme-bootstrap>=7.8.0",
+        "mock>=2.0.0",
+        "pinax-templates>=1.0.0"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

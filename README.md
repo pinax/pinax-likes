@@ -59,39 +59,46 @@ Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 
 To install pinax-likes:
 
-    pip install pinax-likes
+```commandline
+    $ pip install pinax-likes
+```
 
 Add `pinax.likes` to your `INSTALLED_APPS` setting:
 
-    INSTALLED_APPS = (
-        ...
+```python
+    INSTALLED_APPS = [
+        # other apps
         "pinax.likes",
-        ...
-    )
+    ]
+```
 
 Add the models that you want to be likable to `PINAX_LIKES_LIKABLE_MODELS`:
 
+```python
     PINAX_LIKES_LIKABLE_MODELS = {
         "app.Model": {}  # can override default config settings for each model here
     }
+```
 
 Add `pinax.likes.auth_backends.CanLikeBackend` to your
 `AUTHENTICATION_BACKENDS` (or use your own custom version checking
 against the `pinax.likes.can_like` permission):
 
+```python
     AUTHENTICATION_BACKENDS = [
-        ...
+        # other backends
         pinax.likes.auth_backends.CanLikeBackend,
-        ...
     ]
+```
 
 Lastly add `pinax.likes.urls` to your project urlpatterns:
 
+```python
     urlpatterns = [
-        ...
+        # other urls
         url(r"^likes/", include("pinax.likes.urls", namespace="pinax_likes")),
-        ...
     ]
+```
 
 
 ### Usage
@@ -100,21 +107,27 @@ Lastly add `pinax.likes.urls` to your project urlpatterns:
 
 Add each model that you want to be likable to the `PINAX_LIKES_LIKABLE_MODELS` setting:
 
+```python
     PINAX_LIKES_LIKABLE_MODELS = {
         "profiles.Profile": {},
         "videos.Video": {},
         "biblion.Post": {},
     }
+```
 
 #### Templates
 
 Let's say you have a detail page for a blog post. First load the template tags:
 
+```djangotemplate
     {% load pinax_likes_tags %}
+```
 
 In the body where you want the liking widget to go, add:
 
+```djangotemplate
     {% likes_widget request.user post %}
+```
 
 Finally, ensure you have `eldarion-ajax` installed:
 
@@ -126,12 +139,16 @@ Furthermore, the templates that ship with this project will work
 seemlessly with `eldarion-ajax`. Include the `eldarion-ajax.min.js`
 Javascript package in your base template:
 
+```djangotemplate
     {% load staticfiles %}
     <script src="{% static "js/eldarion-ajax.min.js" %}"></script>
+```
 
 and include `eldarion-ajax` in your site JavaScript:
 
+```javascript
     require('eldarion-ajax');
+```
 
 Using Eldarion AJAX is optional. You can roll your own JavaScript handling as
 the view also returns data in addition to rendered HTML. Furthermore, if
@@ -161,8 +178,9 @@ the single `kwarg` of `object` which is the object that was just unliked.
 
 Returns the number of likes for a given object:
 
-
+```djangotemplate
     {{ obj|likes_count }}
+```
 
 ### Template Tags
 
@@ -170,11 +188,13 @@ Returns the number of likes for a given object:
 
 An assignment tag that fetches a list of likes for a given object:
 
+```djangotemplate
     {% who_likes car as car_likes %}
 
     {% for like in car_likes %}
         <div class="like">{{ like.sender.get_full_name }} likes {{ car }}</div>
     {% endfor %}
+```
 
 #### likes
 
@@ -183,31 +203,38 @@ that the given user likes. This tag has two forms:
 
 1. Obtain `likes` of every model listed in `settings.PINAX_LIKES_LIKABLE_MODELS`:
 
-        {% likes user as objs %}
-
+```djangotemplate
+    {% likes user as objs %}
+```
 
 2. Obtain `likes` for specific models:
 
-        {% likes user "app.Model" as objs %}
+```djangotemplate
+    {% likes user "app.Model" as objs %}
+```
 
 ##### Example:
 
+```djangotemplate
     {% likes request.user "app.Model" as objs %}
     {% for obj in objs %}
         <div>{{ obj }}</div>
     {% endfor %}
+```
 
 #### render_like
 
 This renders a like. It combines well with the `likes` templatetag
 for showing a list of likes:
 
+```djangotemplate
     {% likes user as like_list %}
     <ul>
         {% for like in like_list %}
             <li>{% render_like like %}</li>
         {% endfor %}
     </ul>
+```
 
 The `render_like tag` looks in the following places for the template to
 render. Any of them can be overwritten as needed, allowing you to
@@ -224,12 +251,16 @@ This renders a fragment of HTML the user clicks on
 to unlike or like objects. It only has two required parameters,
 the user and the object:
 
+```djangotemplate
     {% likes_widget user object %}
+```
 
 It renders `pinax/likes/_widget.html`.
 A second form for this templatetag specifies the template to be rendered:
 
+```djangotemplate
     {% likes_widget request.user post "pinax/likes/_widget_brief.html" %}
+```
 
 #### liked
 
@@ -237,13 +268,22 @@ This template tag decorates an iterable of objects with a
 `liked` boolean indicating whether or not the specified
 user likes each object in the iterable:
 
+```djangotemplate
     {% liked objects by request.user as varname %}
     {% for obj in varname %
         <div>{% if obj.liked %}* {% endif %}{{ obj.title }}</div>
     {% endfor %}
-    
+```    
     
 ## ChangeLog
+
+## 3.0.1
+
+* Add django>=1.11 to requirements
+* Improve documentation markup
+* Remove doc build support
+* Update CI config
+* Replace pinax-theme-bootstrap with pinax-templates for testing
 
 ## 3.0.0
 

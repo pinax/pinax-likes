@@ -11,8 +11,6 @@ Pinax Likes
 
 .. image:: https://img.shields.io/pypi/v/pinax-likes.svg
     :target: https://pypi.python.org/pypi/pinax-likes/
-.. image:: https://img.shields.io/badge/license-MIT-blue.svg
-    :target: https://pypi.python.org/pypi/pinax-likes/
 
 .. image:: https://img.shields.io/circleci/project/github/pinax/pinax-likes.svg
     :target: https://circleci.com/gh/pinax/pinax-likes
@@ -27,8 +25,9 @@ Pinax Likes
 
 .. image:: http://slack.pinaxproject.com/badge.svg
     :target: http://slack.pinaxproject.com/
-
-
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+    :target: https://opensource.org/licenses/MIT/
+    
 ``pinax-likes`` is a liking app for Django, allowing users to "like" and "unlike"
 any model instance in your project. Template tags provide the ability to see who
 liked an object, what objects a user liked, and more.

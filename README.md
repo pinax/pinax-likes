@@ -275,7 +275,7 @@ user likes each object in the iterable:
     {% endfor %}
 ```    
     
-## ChangeLog
+## Change Log
 
 ## 3.0.1
 

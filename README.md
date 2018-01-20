@@ -22,11 +22,11 @@
 * [Documentation](#documentation)
   * [Installation](#installation)
   * [Usage](#usage)
-  * [Settings](#settings)
-  * [Templates](#templates)
   * [Signals](#signals)
   * [Filters](#filters)
   * [TemplateTags](#template-tags)
+  * [Settings](#settings)
+  * [Templates](#templates)
 * [Change Log](#change-log)
 * [Contribute](#contribute)
 * [Code of Conduct](#code-of-conduct)
@@ -75,11 +75,11 @@ Add `pinax.likes` to your `INSTALLED_APPS` setting:
     ]
 ```
 
-Add the models that you want to be likable to `PINAX_LIKES_LIKABLE_MODELS`:
+Add the models that you want to be likable to `PINAX_LIKES_LIKABLE_MODELS` in your settings file:
 
 ```python
     PINAX_LIKES_LIKABLE_MODELS = {
-        "app.Model": {}  # can override default config settings for each model here
+        "app.Model": {}  # override default config settings for each model in this dict
     }
 ```
 
@@ -105,8 +105,6 @@ Lastly add `pinax.likes.urls` to your project urlpatterns:
 
 ### Usage
 
-#### Settings
-
 Add each model that you want to be likable to the `PINAX_LIKES_LIKABLE_MODELS` setting:
 
 ```python
@@ -117,9 +115,8 @@ Add each model that you want to be likable to the `PINAX_LIKES_LIKABLE_MODELS` s
     }
 ```
 
-#### Templates
-
-Let's say you have a detail page for a blog post. First load the template tags:
+Display "like" widgets in your Django templates.
+Suppose you have a detail page for a blog post. First load the template tags:
 
 ```django
     {% load pinax_likes_tags %}
@@ -133,7 +130,7 @@ In the body where you want the liking widget to go, add:
 
 Finally, ensure you have `eldarion-ajax` installed:
 
-##### Eldarion AJAX
+#### Eldarion AJAX
 
 The `likes_widget` templatetag above and the "toggle like" view both conform
 to an `AJAX` response that [eldarion-ajax](https://github.com/eldarion/eldarion-ajax) understands.
@@ -274,6 +271,78 @@ user likes each object in the iterable:
         <div>{% if obj.liked %}* {% endif %}{{ obj.title }}</div>
     {% endfor %}
 ```    
+
+
+### Settings
+
+#### PINAX_LIKES_LIKABLE_MODELS
+
+A dictionary keyed by "<appname.model>". Each model value is a dictionary containing context keys and values.
+
+Context value keys are CSS element names used in template rendering for each model:
+
+##### `"count_text_singular"`
+
+##### `"count_text_plural"`
+
+##### `"css_class_off"`
+
+##### `"css_class_on"`
+
+##### `"like_text_off"`
+
+##### `"like_text_on"`
+
+Here is an example from the test settings used on this project found in runtests.py.
+
+```python
+    PINAX_LIKES_LIKABLE_MODELS = {
+        "auth.User": {
+            "like_text_on": "unlike",
+            "css_class_on": "fa-heart",
+            "like_text_off": "like",
+            "css_class_off": "fa-heart-o",
+            "allowed": lambda user, obj: True
+        },
+        "tests.Demo": {
+            "like_text_on": "unlike",
+            "css_class_on": "fa-heart",
+            "like_text_off": "like",
+            "css_class_off": "fa-heart-o"
+        }
+    },
+```
+
+### Templates
+
+`pinax-likes` uses minimal template snippets rendered with template tags.
+
+Default templates are provided by the `pinax-templates` app in the
+[likes](https://github.com/pinax/pinax-templates/tree/master/pinax/templates/templates/pinax/likes)
+section of that project.
+
+Reference pinax-templates
+[installation instructions](https://github.com/pinax/pinax-templates/blob/master/README.md#installation)
+to include these templates in your project.
+
+#### Customizing Templates
+
+Override the default `pinax-templates` templates by copying them into your project
+subdirectory `pinax/likes/` on the template path and modifying as needed.
+
+For example if your project doesn't use Bootstrap, copy the desired templates
+then remove Bootstrap and Font Awesome class names from your copies.
+Remove class references like `class="btn btn-success"` and `class="icon icon-pencil"` as well as
+`bootstrap` from the `{% load i18n bootstrap %}` statement.
+Since `bootstrap` template tags and filters are no longer loaded, you'll also need to update
+`{{ form|bootstrap }}` to `{{ form }}` since the "bootstrap" filter is no longer available.
+
+#### `_like.html`
+
+#### `_widget.html`
+
+#### `_widget_brief.html`
+
     
 ## Change Log
 

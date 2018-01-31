@@ -46,6 +46,9 @@ Django apps, themes, and starter project templates. This collection can be found
 any model instance in your project. Template tags provide the ability to see who
 liked an object, what objects a user liked, and more.
 
+`pinax-likes` is not a karma system. It does not have down-voting.
+
+
 ### Overview
 
 #### Supported Django and Python versions

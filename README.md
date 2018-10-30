@@ -275,7 +275,6 @@ user likes each object in the iterable:
     {% endfor %}
 ```    
 
-
 ### Settings
 
 #### PINAX_LIKES_LIKABLE_MODELS

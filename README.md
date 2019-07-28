@@ -97,7 +97,7 @@ against the `pinax.likes.can_like` permission):
     ]
 ```
 
-Lastly add `pinax.likes.urls` to your project urlpatterns:
+Add `pinax.likes.urls` to your project urlpatterns:
 
 ```python
     urlpatterns = [

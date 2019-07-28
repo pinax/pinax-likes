@@ -24,7 +24,7 @@
   * [Usage](#usage)
   * [Signals](#signals)
   * [Filters](#filters)
-  * [TemplateTags](#template-tags)
+  * [Template Tags](#template-tags)
   * [Settings](#settings)
   * [Templates](#templates)
 * [Change Log](#change-log)

@@ -350,6 +350,10 @@ Since `bootstrap` template tags and filters are no longer loaded, you'll also ne
     
 ## Change Log
 
+## 3.0.2
+
+* Add makemigrations.py file
+
 ## 3.0.1
 
 * Add django>=1.11 to requirements

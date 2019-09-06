@@ -13,7 +13,7 @@ class Like(models.Model):
                                related_name="liking", on_delete=models.CASCADE)
 
     receiver_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    receiver_object_id = models.PositiveIntegerField()
+    receiver_object_id = models.BigIntegerField()
     receiver = GenericForeignKey(
         ct_field="receiver_content_type",
         fk_field="receiver_object_id"

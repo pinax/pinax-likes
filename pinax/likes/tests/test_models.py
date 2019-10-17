@@ -33,3 +33,8 @@ class LikeTestCase(TestCase):
         like, liked = Like.like(u1, self.content_type, u2.pk)
         like, liked = Like.like(u1, self.content_type, u2.pk)
         self.assertFalse(liked)
+
+    def test_big_integer_receiver_object_id(self):
+        u1 = User.objects.create(username="patrick")
+        like, liked = Like.like(u1, self.content_type, 92233720368547751007)
+        self.assertTrue(liked)

@@ -350,6 +350,10 @@ Since `bootstrap` template tags and filters are no longer loaded, you'll also ne
     
 ## Change Log
 
+## 3.0.3 
+
+* Change receiver_object_id type to BigIntegerField
+
 ## 3.0.2
 
 * Add makemigrations.py file

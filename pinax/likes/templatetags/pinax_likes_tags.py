@@ -116,7 +116,7 @@ def render_like(parser, token):
     return LikeRenderer(var)
 
 
-class ObjectDecorator(object):
+class ObjectDecorator:
 
     def __init__(self, user, objects):
         self.user = user

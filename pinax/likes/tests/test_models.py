@@ -36,5 +36,9 @@ class LikeTestCase(TestCase):
 
     def test_big_integer_receiver_object_id(self):
         u1 = User.objects.create(username="patrick")
-        like, liked = Like.like(u1, self.content_type, 92233720368547751007)
+        # With Django's BigIntegerField, values from
+        # -9223372036854775808 to 9223372036854775807
+        # are safe in all databases supported by Django
+        # https://docs.djangoproject.com/en/3.0/ref/models/fields/#bigintegerfield
+        like, liked = Like.like(u1, self.content_type, 9223372036854775807)
         self.assertTrue(liked)

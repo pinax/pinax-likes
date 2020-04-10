@@ -3,10 +3,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
 from ..models import Like
+from ..templatetags.pinax_likes_tags import ObjectDecorator
 from ..templatetags.pinax_likes_tags import likes as likes_tag
 from ..templatetags.pinax_likes_tags import likes_count as likes_count_tag
 from ..templatetags.pinax_likes_tags import who_likes as who_likes_tag
-from ..templatetags.pinax_likes_tags import ObjectDecorator
 
 
 class ObjectDecoratorTestCase(TestCase):

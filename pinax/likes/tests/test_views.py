@@ -1,4 +1,5 @@
 import json
+from urllib.parse import quote
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, User
@@ -6,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
-from django.utils.http import urlquote
 
 import mock
 
@@ -97,7 +97,7 @@ class LikeToggleTestCase(TestCase):
             content_type_id=self.user_content_type.pk,
             object_id=brian.pk
         )
-        self.assertRedirectsToLogin(response, urlquote(url))
+        self.assertRedirectsToLogin(response, quote(url))
         self.assertFalse(self.like_qs.filter(receiver_object_id=brian.pk).exists())
 
     def test_unlike_james(self):

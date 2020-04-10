@@ -15,4 +15,4 @@ class CanLikeBackend(ModelBackend):
             if not user.is_authenticated:
                 return False
             return (self.is_allowed(obj) and per_model_perm_check(user, obj))
-        return super(CanLikeBackend, self).has_perm(user, perm, obj)
+        return super().has_perm(user, perm, obj)

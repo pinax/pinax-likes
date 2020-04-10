@@ -7,7 +7,7 @@ from .models import Like
 
 
 def name(obj):
-    return "{0}.{1}".format(obj._meta.app_label, obj._meta.object_name)
+    return f"{obj._meta.app_label}.{obj._meta.object_name}"
 
 
 def _allowed(model):

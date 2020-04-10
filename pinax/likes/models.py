@@ -25,7 +25,7 @@ class Like(models.Model):
         )
 
     def __str__(self):
-        return "{0} likes {1}".format(self.sender, self.receiver)
+        return f"{self.sender} likes {self.receiver}"
 
     @classmethod
     def like(cls, sender, content_type, object_id):

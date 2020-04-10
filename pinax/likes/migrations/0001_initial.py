@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('receiver_object_id', models.PositiveIntegerField()),
                 ('timestamp', models.DateTimeField(default=django.utils.timezone.now)),
-                ('receiver_content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='liking', to=settings.AUTH_USER_MODEL)),
+                ('receiver_content_type', models.ForeignKey('contenttypes.ContentType', on_delete=django.db.models.deletion.CASCADE)),
+                ('sender', models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE, related_name='liking')),
             ],
         ),
         migrations.AlterUniqueTogether(

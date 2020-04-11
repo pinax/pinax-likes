@@ -5,7 +5,7 @@ from django.http import (
     Http404,
     HttpResponseForbidden,
     HttpResponseRedirect,
-    JsonResponse
+    JsonResponse,
 )
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string

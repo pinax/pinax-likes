@@ -18,7 +18,7 @@
 
 * [About Pinax](#about-pinax)
 * [Overview](#overview)
-  * [Supported Django and Python versions](#supported-django-and-python-versions)
+  * [Supported Django and Python Versions](#supported-django-and-python-versions)
 * [Documentation](#documentation)
   * [Installation](#installation)
   * [Usage](#usage)
@@ -32,8 +32,8 @@
 * [Code of Conduct](#code-of-conduct)
 * [Connect with Pinax](#connect-with-pinax)
 * [License](#license)
-  
-  
+
+
 ## About Pinax
 
 Pinax is an open-source platform built on the Django Web Framework. It is an ecosystem of reusable
@@ -51,7 +51,7 @@ liked an object, what objects a user liked, and more.
 
 ### Overview
 
-#### Supported Django and Python versions
+#### Supported Django and Python Versions
 
 Django \ Python | 2.7 | 3.4 | 3.5 | 3.6
 --------------- | --- | --- | --- | ---
@@ -347,10 +347,10 @@ Since `bootstrap` template tags and filters are no longer loaded, you'll also ne
 
 #### `_widget_brief.html`
 
-    
+
 ## Change Log
 
-## 3.0.3 
+## 3.0.3
 
 * Change receiver_object_id type to BigIntegerField
 

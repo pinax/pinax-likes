@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-VERSION = "3.0.3"
+VERSION = "4.0.0"
 LONG_DESCRIPTION = """
 .. image:: http://pinaxproject.com/pinax-design/patches/pinax-likes.svg
     :target: https://pypi.python.org/pypi/pinax-likes/
@@ -12,7 +12,7 @@ Pinax Likes
 .. image:: https://img.shields.io/pypi/v/pinax-likes.svg
     :target: https://pypi.python.org/pypi/pinax-likes/
 
-\ 
+\
 
 .. image:: https://img.shields.io/circleci/project/github/pinax/pinax-likes.svg
     :target: https://circleci.com/gh/pinax/pinax-likes
@@ -25,14 +25,14 @@ Pinax Likes
 .. image:: https://img.shields.io/github/issues-pr-closed/pinax/pinax-likes.svg
     :target: https://github.com/pinax/pinax-likes/pulls?q=is%3Apr+is%3Aclosed
 
-\ 
+\
 
 .. image:: http://slack.pinaxproject.com/badge.svg
     :target: http://slack.pinaxproject.com/
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg
     :target: https://opensource.org/licenses/MIT/
-    
-\ 
+
+\
 
 ``pinax-likes`` is a liking app for Django, allowing users to "like" and "unlike"
 any model instance in your project. Template tags provide the ability to see who
@@ -41,13 +41,13 @@ liked an object, what objects a user liked, and more.
 Supported Django and Python Versions
 ------------------------------------
 
-+-----------------+-----+-----+-----+-----+
-| Django \ Python | 2.7 | 3.4 | 3.5 | 3.6 |
-+=================+=====+=====+=====+=====+
-| 1.11            |  *  |  *  |  *  |  *  |
-+-----------------+-----+-----+-----+-----+
-| 2.0             |     |  *  |  *  |  *  |
-+-----------------+-----+-----+-----+-----+
++-----------------+-----+-----+-----+
+| Django / Python | 3.6 | 3.7 | 3.8 |
++=================+=====+=====+=====+
+|  2.2            |  *  |  *  |  *  |
++-----------------+-----+-----+-----+
+|  3.0            |  *  |  *  |  *  |
++-----------------+-----+-----+-----+
 """
 
 setup(
@@ -65,7 +65,7 @@ setup(
         ]
     },
     install_requires=[
-        "django>=1.11",
+        "django>=2.2",
         "django-appconf>=1.0.1",
     ],
     test_suite="runtests.runtests",
@@ -77,18 +77,16 @@ setup(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Django",
-        'Framework :: Django :: 1.11',
-        'Framework :: Django :: 2.0',
+        "Framework :: Django :: 2.2",
+        "Framework :: Django :: 3.0",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
     zip_safe=False,

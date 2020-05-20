@@ -3,10 +3,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
 class Like(models.Model):
 
     sender = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -27,7 +25,7 @@ class Like(models.Model):
         )
 
     def __str__(self):
-        return "{0} likes {1}".format(self.sender, self.receiver)
+        return f"{self.sender} likes {self.receiver}"
 
     @classmethod
     def like(cls, sender, content_type, object_id):

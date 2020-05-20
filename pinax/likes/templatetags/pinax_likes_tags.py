@@ -93,8 +93,8 @@ class LikeRenderer(template.Node):
         }
 
         return render_to_string([
-            "pinax/likes/{0}/{1}.html".format(app_name, model_name),
-            "pinax/likes/{0}/like.html".format(app_name),
+            f"pinax/likes/{app_name}/{model_name}.html",
+            f"pinax/likes/{app_name}/like.html",
             "pinax/likes/_like.html",
         ], like_context, context)
 
@@ -116,7 +116,7 @@ def render_like(parser, token):
     return LikeRenderer(var)
 
 
-class ObjectDecorator(object):
+class ObjectDecorator:
 
     def __init__(self, user, objects):
         self.user = user

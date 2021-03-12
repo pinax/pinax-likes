@@ -104,7 +104,7 @@ against the `pinax.likes.can_like` permission):
 ```python
     AUTHENTICATION_BACKENDS = [
         # other backends
-        pinax.likes.auth_backends.CanLikeBackend,
+        "pinax.likes.auth_backends.CanLikeBackend",
     ]
 ```
 

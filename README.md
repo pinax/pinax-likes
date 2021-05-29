@@ -64,10 +64,11 @@ liked an object, what objects a user liked, and more.
 
 #### Supported Django and Python Versions
 
-Django / Python | 3.6 | 3.7 | 3.8
---------------- | --- | --- | ---
-2.2  |  *  |  *  |  *
-3.0  |  *  |  *  |  *
+Django / Python | 3.6 | 3.7 | 3.8 | 3.9
+--------------- | --- | --- | --- | ---  
+2.2  |  *  |  *  |  *  |  *   
+3.1  |  *  |  *  |  *  |  *  
+3.2  |  *  |  *  |  *  |  *  
 
 
 ## Documentation

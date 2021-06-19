@@ -127,4 +127,3 @@ workflows:
       - py39dj22
       - py39dj31
       - py39dj32
-  
